@@ -55,12 +55,6 @@ public class NetworkAvatar : NetworkBehaviour
         }
     }
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        InitVRRig vrRig = GetComponent<InitVRRig>();
-        if (vrRig != null)vrRig.Init();
-    }
 
     public bool IsOwner => isLocalPlayer;
 
@@ -81,7 +75,7 @@ public class NetworkAvatar : NetworkBehaviour
             //write vars 
             foreach (var b in bones)
             {
-                rots.Add(b.rotation);
+                rots.Add(b.localRotation);
             }
             UpdateSyncvars(root.position, rots);
         }
@@ -91,7 +85,7 @@ public class NetworkAvatar : NetworkBehaviour
             {
                 for (int i = 0; i < rotations.Count; i++)
                 {
-                    bones[i].rotation = rotations[i];
+                    bones[i].localRotation = rotations[i];
                 }
                 root.position = rootPos;
             }
