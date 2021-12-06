@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class InitVRRig : MonoBehaviour
 {
+
     public AvatarScaler scaler;
     public AvatarController controller;
     public Transform headIKTarget;
@@ -41,7 +43,7 @@ public class InitVRRig : MonoBehaviour
             config.headTrackerTarget.enabled = true;
         }
 
-        if (hipTrackerTarget!= null && config.hipTrackerTarget != null)
+        if (hipTrackerTarget != null && config.hipTrackerTarget != null)
         {
             config.hipTrackerTarget.target = hipTrackerTarget;
             config.hipTrackerTarget.offset = hipTrackerOffset;
@@ -56,7 +58,7 @@ public class InitVRRig : MonoBehaviour
             config.leftFootTarget.initialized = true;
             config.leftFootTarget.enabled = true;
         }
-        if (rightFootIKTarget != null && config.rightFootTarget!=null)
+        if (rightFootIKTarget != null && config.rightFootTarget != null)
         {
             config.rightFootTarget.target = rightFootIKTarget;
             config.rightFootTarget.offset = rightFootTrackerOffset;
@@ -67,8 +69,18 @@ public class InitVRRig : MonoBehaviour
 
     public void Deactivate()
     {
-         scaler.enabled = false;
-         controller.enabled = false;
+        Animator anim = GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.enabled = false;
+        }
+        RigBuilder rig = GetComponent<RigBuilder>();
+        if (rig != null)
+        {
+            rig.enabled = false;
+        }
+        scaler.enabled = false;
+        controller.enabled = false;
     }
 
 
