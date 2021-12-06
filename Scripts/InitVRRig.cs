@@ -20,7 +20,12 @@ public class InitVRRig : MonoBehaviour
     public void Init()
     {
         var config = Camera.main.GetComponent<VRRigConfig>();
-        if (config == null) return;
+        if (config == null)
+        {
+            scaler.enabled = false;
+            controller.enabled = false;
+            return;
+        }
         scaler.cameraTarget = Camera.main.transform;
         controller.headset = Camera.main.transform;
         controller.rightController = config.rightController;
