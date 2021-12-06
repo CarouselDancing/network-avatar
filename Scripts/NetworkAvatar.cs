@@ -18,8 +18,9 @@ public class NetworkAvatar : NetworkBehaviour
     Animator anim;
     public List<Transform> bones;
     public Transform root;
-
-
+    public bool visServer = false;
+    public int updateFrameRate = 1;
+    public int nextUpdateCounter;
     // https://mirror-networking.gitbook.io/docs/guides/communications/networkbehaviour-callbacks
 
     public override void OnStartAuthority()
@@ -30,7 +31,7 @@ public class NetworkAvatar : NetworkBehaviour
     void Start()
     {
         // only the owner has the XR Rig
-
+        nextUpdateCounter = updateFrameRate;
         anim = GetComponent<Animator>();
         bones = new List<Transform>();
         root = anim.GetBoneTransform(HumanBodyBones.Hips);
@@ -68,6 +69,14 @@ public class NetworkAvatar : NetworkBehaviour
     void Update()
     {
 
+        
+        if (nextUpdateCounter > 0)
+        {
+            nextUpdateCounter= nextUpdateCounter -1;
+            return;
+        }
+
+        if (!visServer && !isClient) return;
         if (IsOwner)
         {
 
@@ -90,8 +99,8 @@ public class NetworkAvatar : NetworkBehaviour
                 root.position = rootPos;
             }
         }
+        nextUpdateCounter = updateFrameRate;
 
-       
     }
 
     private void OnGUI()
