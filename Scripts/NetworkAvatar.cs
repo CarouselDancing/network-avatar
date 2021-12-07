@@ -1,8 +1,14 @@
+/*
+MonoBehavior to synchronize the root position and local rotations of a Humanoid Animator via the MirrorSDK
+Based on NetworkPlayer from mirror-testbed
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Mirror;
+
+
 public class NetworkAvatar : NetworkBehaviour
 {
 
@@ -21,12 +27,6 @@ public class NetworkAvatar : NetworkBehaviour
     public bool visServer = false;
     public int updateFrameRate = 1;
     public int nextUpdateCounter;
-    // https://mirror-networking.gitbook.io/docs/guides/communications/networkbehaviour-callbacks
-
-    public override void OnStartAuthority()
-    {
-        Debug.Log("Object has authority");
-    }
 
     void Start()
     {
