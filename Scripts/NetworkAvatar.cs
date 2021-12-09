@@ -13,11 +13,9 @@ public class NetworkAvatar : NetworkBehaviour
 {
 
 
-
+    SyncList<Quaternion> rotations = new SyncList<Quaternion>();
     [SyncVar]
-    public List<Quaternion> rotations;
-    [SyncVar]
-    public Vector3 rootPos;
+    Vector3 rootPos;
 
     // bones of the avatar
     public List<HumanBodyBones> trackedBones;
@@ -63,7 +61,10 @@ public class NetworkAvatar : NetworkBehaviour
     void UpdateSyncvars(Vector3 _rootPos, List<Quaternion> _rotations)
     {
         rootPos = _rootPos;
-        rotations = _rotations;
+        rotations.Clear();
+        foreach (var q in _rotations) {
+            rotations.Add(q);
+        }
     }
 
     void Update()
