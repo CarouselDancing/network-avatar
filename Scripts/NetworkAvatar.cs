@@ -26,7 +26,7 @@ public class NetworkAvatar : NetworkBehaviour
     public int updateFrameRate = 1;
     public int nextUpdateCounter;
     public bool initOnStart = true;
-    bool initialized = false;
+    public bool initialized = false;
 
     void Start()
     {

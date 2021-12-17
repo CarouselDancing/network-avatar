@@ -8,12 +8,25 @@ public class AvatarManager : NetworkBehaviour
 {
     public List<GameObject> avatars;
     public List<HumanBodyBones> trackedBones;
-    void Start()
+    [SyncVar]
+    public int avatarIndex = 0;
+    [SyncVar]
+    public bool initialized = false;
+    public GameObject currentAvatar;
+
+    void Update()
     {
-        SetupAvatarController(avatars[0]);
+        if (!initialized) UpdateAvatar();
+    }
+    public void UpdateAvatar()
+    {
+        var avatar = GetComponent<NetworkAvatar>();
+        avatar.initialized = false;
+        if (currentAvatar != null) Destroy(currentAvatar);
+        currentAvatar = SetupAvatarController(avatars[avatarIndex]);
     }
 
-    void SetupAvatarController(GameObject avatarPrefab)
+    GameObject SetupAvatarController(GameObject avatarPrefab)
     {
         var o = GameObject.Instantiate(avatarPrefab);
         o.transform.parent = transform;
@@ -43,6 +56,24 @@ public class AvatarManager : NetworkBehaviour
         controller.anim = o.GetComponent<Animator>();
         vrRig.controller = controller;
         vrRig.scaler = scaler;
+        initialized = true;
+        return o;
 
     }
+    [Command]
+    void UpdateAvatar(int _avatarIndex)
+    {
+        avatarIndex = _avatarIndex;
+        initialized = false;
+    }
+
+    public void ToggleAvatar()
+    {
+        avatarIndex += 1;
+        avatarIndex %= avatars.Count;
+        UpdateAvatar(avatarIndex);
+    }
+
+
+  
 }
