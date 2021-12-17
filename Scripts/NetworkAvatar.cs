@@ -25,18 +25,27 @@ public class NetworkAvatar : NetworkBehaviour
     public bool visServer = false;
     public int updateFrameRate = 1;
     public int nextUpdateCounter;
+    public bool initOnStart = true;
+    public bool initialized = false;
 
     void Start()
     {
+        if (initOnStart)
+        {
+            Init(GetComponent<Animator>());
+        }
+    }
+    public void Init(Animator _anim)
+    {
+        anim = _anim;
         // only the owner has the XR Rig
         nextUpdateCounter = updateFrameRate;
-        anim = GetComponent<Animator>();
         bones = new List<Transform>();
         root = anim.GetBoneTransform(HumanBodyBones.Hips);
         foreach (var b in trackedBones)
         {
             var t = anim.GetBoneTransform(b);
-            if (t!= null) bones.Add(t);
+            if (t != null) bones.Add(t);
         }
         anim.enabled = IsOwner;
 
@@ -52,6 +61,7 @@ public class NetworkAvatar : NetworkBehaviour
                 vrRig.Deactivate();
             }
         }
+        initialized = true;
     }
 
 
@@ -70,7 +80,7 @@ public class NetworkAvatar : NetworkBehaviour
     void Update()
     {
 
-        
+        if (!initialized) return;
         if (nextUpdateCounter > 0)
         {
             nextUpdateCounter= nextUpdateCounter -1;

@@ -1023,7 +1023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6250874452364988333}
   m_Layer: 0
-  m_Name: RHint
+  m_Name: LHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2060,7 +2060,7 @@ GameObject:
   - component: {fileID: 6927383916771116728}
   - component: {fileID: 6927383916771116729}
   m_Layer: 0
-  m_Name: LeftHand
+  m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2095,9 +2095,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_Root: {fileID: 3494417284859412706}
-    m_Mid: {fileID: 501098657060269347}
-    m_Tip: {fileID: 4188178534281250329}
+    m_Root: {fileID: 3703850293303397599}
+    m_Mid: {fileID: 4877499624975427186}
+    m_Tip: {fileID: 8761381655446907922}
     m_Target: {fileID: 6927383916771116728}
     m_Hint: {fileID: 7962273367451287238}
     m_TargetPositionWeight: 1
@@ -2148,7 +2148,7 @@ GameObject:
   - component: {fileID: 6927383917346850553}
   - component: {fileID: 6927383917346850558}
   m_Layer: 0
-  m_Name: RightHand
+  m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2183,9 +2183,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_Root: {fileID: 3703850293303397599}
-    m_Mid: {fileID: 4877499624975427186}
-    m_Tip: {fileID: 8761381655446907922}
+    m_Root: {fileID: 3494417284859412706}
+    m_Mid: {fileID: 501098657060269347}
+    m_Tip: {fileID: 4188178534281250329}
     m_Target: {fileID: 6927383917346850553}
     m_Hint: {fileID: 6250874452364988333}
     m_TargetPositionWeight: 1
@@ -2693,13 +2693,9 @@ GameObject:
   - component: {fileID: 3551536157724651083}
   - component: {fileID: 6927383917811110407}
   - component: {fileID: 6927383917811110426}
-  - component: {fileID: 6012759102592966613}
-  - component: {fileID: 2305293125406579368}
-  - component: {fileID: 7882670018215711884}
-  - component: {fileID: 6927383917811110405}
-  - component: {fileID: 6927383917811110404}
+  - component: {fileID: 206637230618693390}
   m_Layer: 0
-  m_Name: VRAvatar
+  m_Name: Ninja
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2733,7 +2729,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7845951327085506187}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 67409d391b0743f46b8bb76f1ab8a089, type: 3}
   m_Controller: {fileID: 9100000, guid: e34221a6b0e334e4c917f471b488c655, type: 2}
   m_CullingMode: 1
@@ -2840,7 +2836,7 @@ MonoBehaviour:
   - {fileID: 8001209241759684751}
   - {fileID: 3075505184348728454}
   - {fileID: 4769712292632968626}
---- !u!114 &6012759102592966613
+--- !u!114 &206637230618693390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2849,102 +2845,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7845951327085506187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Script: {fileID: 11500000, guid: 25598cd54640cd046984314752100b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: f33b42135e780c042b0b13251f137351
-  hasSpawned: 0
---- !u!114 &2305293125406579368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7845951327085506187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a93d17b88d3da04e801df968e048c84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  trackedBones: 00000000010000000200000003000000040000000500000006000000070000000800000036000000090000000a0000000b0000000c0000000d0000000e0000000f0000001000000011000000120000001300000014000000
-  bones: []
-  root: {fileID: 0}
-  visServer: 1
-  updateFrameRate: 1
-  nextUpdateCounter: 0
---- !u!114 &7882670018215711884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7845951327085506187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06be252466652ed4dbbd1aeaf16cc0d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaler: {fileID: 6927383917811110405}
-  controller: {fileID: 6927383917811110404}
-  headIKTarget: {fileID: 6927383917575102834}
-  leftIKTarget: {fileID: 6927383916771116728}
-  rightIKTarget: {fileID: 6927383917346850553}
-  hipTrackerTarget: {fileID: 0}
-  hipTrackerOffset: {x: 0, y: 0, z: 0}
-  leftFootIKTarget: {fileID: 0}
-  leftFootTrackerOffset: {x: 0, y: 0, z: 0}
-  rightFootIKTarget: {fileID: 0}
-  rightFootTrackerOffset: {x: 0, y: 0, z: 0}
---- !u!114 &6927383917811110405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7845951327085506187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ee1ab20ce60d84e953079d453530d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraTarget: {fileID: 0}
-  root: {fileID: 3168820315502515365}
-  head: {fileID: 6927383917140340171}
-  floor: {fileID: 1118980605241058768}
-  scaleTargets:
-  - {fileID: 3168820315502515365}
+  Meshes:
   - {fileID: 3943179826728699251}
-  scaleFactor: 0
---- !u!114 &6927383917811110404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7845951327085506187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 225c64abc1e7eb44e81cb0b22393c07e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  headset: {fileID: 0}
-  head: {fileID: 3586318247980099250}
-  cameraTarget: {fileID: 6927383917140340171}
-  hips: {fileID: 3168820315502515365}
-  root: {fileID: 6927383917908119113}
-  offset: {x: 0, y: 0, z: 0}
-  cameraOffset: {x: 0, y: 0, z: 0}
-  rootRig: {fileID: 6927383918064023088}
-  anim: {fileID: 3551536157724651083}
-  leftController: {fileID: 0}
-  rightController: {fileID: 0}
-  hipTracker: {fileID: 0}
-  hideMesh: 0
+  RootRig: {fileID: 6927383918064023088}
+  LeftHandIKTarget: {fileID: 6927383916771116728}
+  RightHandIKTarget: {fileID: 6927383917346850553}
+  HeadIKTarget: {fileID: 6927383917575102834}
+  CameraTarget: {fileID: 6927383917140340171}
+  Root: {fileID: 3168820315502515365}
+  Head: {fileID: 3586318247980099250}
+  ToeTip: {fileID: 1118980605241058768}
 --- !u!1 &7948127672177703599
 GameObject:
   m_ObjectHideFlags: 0
@@ -3173,7 +3086,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7962273367451287238}
   m_Layer: 0
-  m_Name: LHint
+  m_Name: RHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
