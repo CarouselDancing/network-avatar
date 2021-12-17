@@ -36,7 +36,7 @@ public class AvatarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hipTracker == null) { 
+        if (hipTracker == null && headset != null) { 
             var rotation = Quaternion.Euler(0, root.rotation.eulerAngles.y, 0);
             var gcoffset = rotation * cameraOffset;
             var goffset = rotation * offset;
