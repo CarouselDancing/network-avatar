@@ -8,15 +8,12 @@ public class AvatarManager : NetworkBehaviour
 {
     public List<GameObject> avatars;
     public List<HumanBodyBones> trackedBones;
-    [SyncVar]
     public int avatarIndex = 0;
-    [SyncVar]
-    public bool initialized = false;
     public GameObject currentAvatar;
 
-    void Update()
+    void Start()
     {
-        if (!initialized) UpdateAvatar();
+        UpdateAvatar();
     }
     public void UpdateAvatar()
     {
@@ -33,12 +30,12 @@ public class AvatarManager : NetworkBehaviour
         var avatar = GetComponent<NetworkAvatar>();
         avatar.Init(o.GetComponent<Animator>());
         var config = o.GetComponent<CharacterRigConfig>();
-        
+
         var vrRig = o.AddComponent<InitVRRig>();
         vrRig.headIKTarget = config.HeadIKTarget;
         vrRig.leftIKTarget = config.LeftHandIKTarget;
         vrRig.rightIKTarget = config.RightHandIKTarget;
-        
+
         var scaler = o.AddComponent<AvatarScaler>();
         scaler.root = config.Root;
         scaler.head = config.Head;
@@ -56,24 +53,28 @@ public class AvatarManager : NetworkBehaviour
         controller.anim = o.GetComponent<Animator>();
         vrRig.controller = controller;
         vrRig.scaler = scaler;
-        initialized = true;
         return o;
 
     }
     [Command]
-    void UpdateAvatar(int _avatarIndex)
+    void UpdateServerAvatar(int _avatarIndex)
     {
         avatarIndex = _avatarIndex;
-        initialized = false;
+        ChangeClientAvatar(avatarIndex);
+        UpdateAvatar();
+    }
+
+    [ClientRpc]
+    void ChangeClientAvatar(int _avatarIndex)
+    {
+        avatarIndex = _avatarIndex;
+        UpdateAvatar();
     }
 
     public void ToggleAvatar()
     {
-        avatarIndex += 1;
-        avatarIndex %= avatars.Count;
-        UpdateAvatar(avatarIndex);
+        var i = avatarIndex + 1;
+        i %= avatars.Count;
+        UpdateServerAvatar(i);
     }
-
-
-  
 }

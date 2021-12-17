@@ -1023,7 +1023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6250874452364988333}
   m_Layer: 0
-  m_Name: RHint
+  m_Name: LHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2060,7 +2060,7 @@ GameObject:
   - component: {fileID: 6927383916771116728}
   - component: {fileID: 6927383916771116729}
   m_Layer: 0
-  m_Name: LeftHand
+  m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2095,9 +2095,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_Root: {fileID: 3494417284859412706}
-    m_Mid: {fileID: 501098657060269347}
-    m_Tip: {fileID: 4188178534281250329}
+    m_Root: {fileID: 3703850293303397599}
+    m_Mid: {fileID: 4877499624975427186}
+    m_Tip: {fileID: 8761381655446907922}
     m_Target: {fileID: 6927383916771116728}
     m_Hint: {fileID: 7962273367451287238}
     m_TargetPositionWeight: 1
@@ -2148,7 +2148,7 @@ GameObject:
   - component: {fileID: 6927383917346850553}
   - component: {fileID: 6927383917346850558}
   m_Layer: 0
-  m_Name: RightHand
+  m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2183,9 +2183,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_Root: {fileID: 3703850293303397599}
-    m_Mid: {fileID: 4877499624975427186}
-    m_Tip: {fileID: 8761381655446907922}
+    m_Root: {fileID: 3494417284859412706}
+    m_Mid: {fileID: 501098657060269347}
+    m_Tip: {fileID: 4188178534281250329}
     m_Target: {fileID: 6927383917346850553}
     m_Hint: {fileID: 6250874452364988333}
     m_TargetPositionWeight: 1
@@ -3086,7 +3086,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7962273367451287238}
   m_Layer: 0
-  m_Name: LHint
+  m_Name: RHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
