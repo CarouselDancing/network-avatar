@@ -12,6 +12,7 @@ public class CharacterRigConfig : MonoBehaviour
     public Transform RightHandIKTarget;
     public Transform HeadIKTarget;
     public Transform CameraTarget;
+    public Transform RootTarget;
 
     //bones
     public Transform Root;

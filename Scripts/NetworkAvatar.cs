@@ -27,7 +27,7 @@ public class NetworkAvatar : NetworkBehaviour
     public int nextUpdateCounter;
     public bool initOnStart = true;
     public bool initialized = false;
-
+    public InitVRRig vrRigInitializer;
     void Start()
     {
         if (initOnStart)
@@ -48,18 +48,26 @@ public class NetworkAvatar : NetworkBehaviour
             if (t != null) bones.Add(t);
         }
         anim.enabled = IsOwner;
-
-        InitVRRig vrRig = GetComponent<InitVRRig>();
-        if (vrRig != null)
+        if(vrRigInitializer == null) { 
+            vrRigInitializer = GetComponent<InitVRRig>();
+        }
+        Debug.Log("Init Network Avatar");
+        if (vrRigInitializer != null)
         {
             if (IsOwner)
             {
-                vrRig.Init();
+                vrRigInitializer.Init();
+                Debug.Log("init vr rig");
             }
             else
             {
-                vrRig.Deactivate();
+                vrRigInitializer.Deactivate();
+                Debug.Log("deactivate vr rig");
             }
+        }
+        else
+        {
+            Debug.Log("no vr Rig");
         }
         initialized = true;
     }

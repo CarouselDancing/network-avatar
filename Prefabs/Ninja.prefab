@@ -239,7 +239,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870761451096276048}
-  m_LocalRotation: {x: 0.00000020320962, y: -0.00000009375062, z: -0.000000059604666, w: 1}
+  m_LocalRotation: {x: 0.00000020320962, y: -0.00000009375062, z: -0.000000059604666,
+    w: 1}
   m_LocalPosition: {x: -0.00000043373393, y: 0.041562565, z: -0.0000000013174124}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -454,7 +455,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005244204363607077}
-  m_LocalRotation: {x: -0.00000006914203, y: -0.0015491548, z: -0.00000027637253, w: 0.9999988}
+  m_LocalRotation: {x: -0.00000006914203, y: -0.0015491548, z: -0.00000027637253,
+    w: 0.9999988}
   m_LocalPosition: {x: -3.6339945e-10, y: 0.21029888, z: -0.0000000018357079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2851,10 +2853,11 @@ MonoBehaviour:
   Meshes:
   - {fileID: 3943179826728699251}
   RootRig: {fileID: 6927383918064023088}
-  LeftHandIKTarget: {fileID: 6927383916771116728}
-  RightHandIKTarget: {fileID: 6927383917346850553}
+  LeftHandIKTarget: {fileID: 6927383917346850553}
+  RightHandIKTarget: {fileID: 6927383916771116728}
   HeadIKTarget: {fileID: 6927383917575102834}
   CameraTarget: {fileID: 6927383917140340171}
+  RootTarget: {fileID: 6927383917908119113}
   Root: {fileID: 3168820315502515365}
   Head: {fileID: 3586318247980099250}
   ToeTip: {fileID: 1118980605241058768}
@@ -3037,7 +3040,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8638887132375245649}
-  m_LocalRotation: {x: 0.00000029598746, y: 0.0000000686493, z: 0.00000005960466, w: 1}
+  m_LocalRotation: {x: 0.00000029598746, y: 0.0000000686493, z: 0.00000005960466,
+    w: 1}
   m_LocalPosition: {x: 0.00000025209968, y: 0.044056978, z: 4.934355e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

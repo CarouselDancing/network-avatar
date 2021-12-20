@@ -27,14 +27,13 @@ public class AvatarManager : NetworkBehaviour
     {
         var o = GameObject.Instantiate(avatarPrefab);
         o.transform.parent = transform;
-        var avatar = GetComponent<NetworkAvatar>();
-        avatar.Init(o.GetComponent<Animator>());
         var config = o.GetComponent<CharacterRigConfig>();
 
         var vrRig = o.AddComponent<InitVRRig>();
         vrRig.headIKTarget = config.HeadIKTarget;
         vrRig.leftIKTarget = config.LeftHandIKTarget;
         vrRig.rightIKTarget = config.RightHandIKTarget;
+
 
         var scaler = o.AddComponent<AvatarScaler>();
         scaler.root = config.Root;
@@ -46,13 +45,21 @@ public class AvatarManager : NetworkBehaviour
             scaler.scaleTargets.Add(m);
 
         var controller = o.AddComponent<AvatarController>();
+        controller.headset = Camera.main.transform;
         controller.head = config.Head;
+        controller.hips = config.Root;
         controller.cameraTarget = config.CameraTarget;
-        controller.root = config.Root;
+        controller.root = config.RootTarget;
         controller.rootRig = config.RootRig;
         controller.anim = o.GetComponent<Animator>();
         vrRig.controller = controller;
         vrRig.scaler = scaler;
+
+        var avatar = GetComponent<NetworkAvatar>();
+        avatar.vrRigInitializer = vrRig;
+        avatar.Init(o.GetComponent<Animator>());
+
+
         return o;
 
     }

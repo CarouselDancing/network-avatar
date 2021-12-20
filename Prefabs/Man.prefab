@@ -2234,6 +2234,36 @@ Transform:
   m_Father: {fileID: 2218354877794464092}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5800398156329641352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49849306449338379}
+  m_Layer: 0
+  m_Name: CameraHeadTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &49849306449338379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800398156329641352}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1078, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2218354877794464092}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5887759510340925454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,6 +3313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7117228927280421562}
+  - {fileID: 49849306449338379}
   m_Father: {fileID: 5516163467893691491}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3340,7 +3371,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8218649995299175790}
-  m_LocalRotation: {x: -0.000000019349981, y: -0.0024429066, z: -0.00000044787413, w: 0.999997}
+  m_LocalRotation: {x: -0.000000019349981, y: -0.0024429066, z: -0.00000044787413,
+    w: 0.999997}
   m_LocalPosition: {x: 1.9979961e-10, y: 0.27395615, z: -1.3194779e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3698,7 +3730,8 @@ MonoBehaviour:
   LeftHandIKTarget: {fileID: 2166178764569220534}
   RightHandIKTarget: {fileID: 2166178766545982967}
   HeadIKTarget: {fileID: 2166178766446948988}
-  CameraTarget: {fileID: 2218354877794464092}
+  CameraTarget: {fileID: 49849306449338379}
+  RootTarget: {fileID: 2166178765983178055}
   Root: {fileID: 2987036368748887297}
   Head: {fileID: 2218354877794464092}
   ToeTip: {fileID: 801268116347276722}

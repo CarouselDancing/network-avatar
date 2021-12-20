@@ -24,6 +24,7 @@ public class InitVRRig : MonoBehaviour
         {
             scaler.enabled = false;
             controller.enabled = false;
+            Debug.Log("disable VR");
             return;
         }
         scaler.cameraTarget = Camera.main.transform;
@@ -47,6 +48,11 @@ public class InitVRRig : MonoBehaviour
             config.headTrackerTarget.offset = Vector3.zero;
             config.headTrackerTarget.initialized = true;
             config.headTrackerTarget.enabled = true;
+            Debug.Log("activate head ik");
+        }
+        else
+        {
+            Debug.Log("deactivate head ik");
         }
 
         if (hipTrackerTarget != null && config.hipTrackerTarget != null)
