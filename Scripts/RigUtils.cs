@@ -5,12 +5,14 @@ using UnityEngine.Animations.Rigging;
 
 public class RPMIKRigBuilder
 {
-    RuntimeAnimatorController animController;
+    bool _activateFootRig;
+    RuntimeAnimatorController _animController;
     Dictionary<string, Transform> transformMap;
 
-    public RPMIKRigBuilder(RuntimeAnimatorController _animController)
+    public RPMIKRigBuilder(RuntimeAnimatorController animController, bool activateFootRig = true)
     {
-        animController = _animController;
+        _animController = animController;
+        _activateFootRig = activateFootRig;
     }
 
     public CharacterRigConfig Build(GameObject avatar)
@@ -35,7 +37,7 @@ public class RPMIKRigBuilder
         CreateHeadRig(avatar.transform, rigBuilder, ref config);
         CreateLegRig(avatar.transform, rigBuilder,  ref config);
         var anim = avatar.GetComponent<Animator>();
-        anim.runtimeAnimatorController = animController;
+        anim.runtimeAnimatorController = _animController;
         rigBuilder.Build();
         return config;
     }
@@ -145,6 +147,9 @@ public class RPMIKRigBuilder
         legRigObject.transform.parent = root;
         var legRig = legRigObject.AddComponent<Rig>();
 
+        
+        legRig.weight = _activateFootRig ? 1 : 0;
+       
         config.RightHandIKTarget = CreateTwoBoneIKConstraint(legRigObject, "RightUpLeg", "RightLeg", "RightFoot", "RightFootTarget");
 
         config.LeftHandIKTarget = CreateTwoBoneIKConstraint(legRigObject, "LeftUpLeg", "LeftLeg", "LeftFoot", "LeftFootTarget");

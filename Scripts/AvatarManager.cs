@@ -39,6 +39,7 @@ public class AvatarManager : NetworkBehaviour
     int prevAvatarIndex = 0;
     NetworkAvatar networkAvatar;
     public RuntimeAnimatorController animController;
+    public bool activateFootRig = false;
     void Start()
     {
         networkAvatar = GetComponent<NetworkAvatar>();
@@ -80,7 +81,7 @@ public class AvatarManager : NetworkBehaviour
     public void OnRMBAvatarLoaded(GameObject avatar, AvatarMetaData metaData=null)
     {
         avatar.transform.parent = transform;
-        var ikRigBuilder = new RPMIKRigBuilder(animController);
+        var ikRigBuilder = new RPMIKRigBuilder(animController, activateFootRig);
         var config = ikRigBuilder.Build(avatar);
         var vrRig = SetupVRRig(avatar, config);
         RegisterVRRig(avatar.GetComponent<Animator>(), vrRig);
