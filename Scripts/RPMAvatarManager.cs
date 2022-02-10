@@ -8,17 +8,28 @@ using Wolf3D.ReadyPlayerMe.AvatarSDK;
 
 public class RPMAvatarManager : NetworkBehaviour
 {
-    public string AvatarURL = "https://d1a370nemizbjq.cloudfront.net/209a1bc2-efed-46c5-9dfd-edc8a1d9cbe4.glb";
-    public List<HumanBodyBones> trackedBones;
+    [SyncVar]
+    public string AvatarURL = "";
     public GameObject go;
     public RuntimeAnimatorController animationController;
     public bool activateFootRig = false;
     NetworkAvatar networkAvatar;
+    public bool IsOwner => isLocalPlayer;
     private void Start()
     {
+        if (IsOwner)
+        {
+            AvatarURL = GlobalGameManager.GetInstance().config.rpmURL;
+        }
         networkAvatar = GetComponent<NetworkAvatar>();
-        //AvatarURL = Config.Instance.AvatarURL;
-        SetupAvatarControllerFromRPM();
+        if (AvatarURL != "")
+        {
+            SetupAvatarControllerFromRPM();
+        }
+        else
+        {
+            Debug.Log("Error: avatar url is emtpy");
+        }
     }
 
     void SetupAvatarControllerFromRPM()
