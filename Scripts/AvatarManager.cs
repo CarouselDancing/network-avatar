@@ -52,7 +52,7 @@ public class AvatarManager : NetworkBehaviour
         avatar.initialized = false;
         if (avatars[prevAvatarIndex].gameObject != null) Destroy(avatars[prevAvatarIndex].gameObject);
         if (avatars[avatarIndex].avatarType == AvatarType.RMB) {
-            SetupAvatarControllerFromRMB(avatarIndex);
+            SetupAvatarControllerFromRPM(avatarIndex);
         }
         else
         {
@@ -60,11 +60,11 @@ public class AvatarManager : NetworkBehaviour
         }
     }
 
-    void SetupAvatarControllerFromRMB(int avatarIndex)
+    void SetupAvatarControllerFromRPM(int avatarIndex)
     {
         GameObject avatarPrefab = avatars[avatarIndex].prefab;
         AvatarLoader avatarLoader = new AvatarLoader();
-        avatars[avatarIndex].Load(avatarLoader, OnRMBAvatarLoaded);
+        avatars[avatarIndex].Load(avatarLoader, OnRPMAvatarLoaded);
     }
 
     void SetupAvatarControllerFromPrefab(int avatarIndex)
@@ -78,7 +78,7 @@ public class AvatarManager : NetworkBehaviour
         RegisterVRRig(o.GetComponent<Animator>(), vrRig);
     }
 
-    public void OnRMBAvatarLoaded(GameObject avatar, AvatarMetaData metaData=null)
+    public void OnRPMAvatarLoaded(GameObject avatar, AvatarMetaData metaData=null)
     {
         avatar.transform.parent = transform;
         var ikRigBuilder = new RPMIKRigBuilder(animController, activateFootRig);
