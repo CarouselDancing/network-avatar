@@ -10,6 +10,8 @@ public class CharacterRigConfig : MonoBehaviour
     //ik rig targets
     public Transform LeftHandIKTarget;
     public Transform RightHandIKTarget;
+    public Transform LeftFootIKTarget;
+    public Transform RightFootIKTarget;
     public Transform HeadIKTarget;
     public Transform CameraTarget;
     public Transform RootTarget;

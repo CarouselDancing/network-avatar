@@ -150,9 +150,9 @@ public class RPMIKRigBuilder
         
         legRig.weight = _activateFootRig ? 1 : 0;
        
-        config.RightHandIKTarget = CreateTwoBoneIKConstraint(legRigObject, "RightUpLeg", "RightLeg", "RightFoot", "RightFootTarget");
+        config.RightFootIKTarget = CreateTwoBoneIKConstraint(legRigObject, "RightUpLeg", "RightLeg", "RightFoot", "RightFootTarget");
 
-        config.LeftHandIKTarget = CreateTwoBoneIKConstraint(legRigObject, "LeftUpLeg", "LeftLeg", "LeftFoot", "LeftFootTarget");
+        config.LeftFootIKTarget = CreateTwoBoneIKConstraint(legRigObject, "LeftUpLeg", "LeftLeg", "LeftFoot", "LeftFootTarget");
 
         var layer = new RigLayer(legRig);
         rigBuilder.layers.Add(layer);
