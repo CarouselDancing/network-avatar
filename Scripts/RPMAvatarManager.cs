@@ -89,7 +89,19 @@ public class RPMAvatarManager : NetworkBehaviour
     void RegisterVRRig(Animator animator, InitVRRig vrRig)
     {
         networkAvatar.vrRigInitializer = vrRig;
-        networkAvatar.Init(animator);
+        bool activatedVRRig = networkAvatar.Init(animator);
+
+        if (activatedVRRig) return;
+
+        for (int i = 0; i < animator.transform.childCount; i++)
+        {
+            var t = animator.transform.GetChild(i);
+            if (t.name == "Armature")
+            {
+                t.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+                break;
+            }
+        }
     }
 
 }

@@ -35,8 +35,9 @@ public class NetworkAvatar : NetworkBehaviour
             Init(GetComponent<Animator>());
         }
     }
-    public void Init(Animator _anim)
+    public bool Init(Animator _anim)
     {
+        bool activatedVRRig = false;
         anim = _anim;
         // only the owner has the XR Rig
         nextUpdateCounter = updateFrameRate;
@@ -58,6 +59,7 @@ public class NetworkAvatar : NetworkBehaviour
             {
                 vrRigInitializer.Init();
                 Debug.Log("init vr rig");
+                activatedVRRig = true;
             }
             else
             {
@@ -70,6 +72,7 @@ public class NetworkAvatar : NetworkBehaviour
             Debug.Log("no vr Rig");
         }
         initialized = true;
+        return activatedVRRig;
     }
 
 
