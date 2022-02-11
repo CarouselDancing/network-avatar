@@ -22,7 +22,7 @@ public class RPMIKRigBuilder
         for (int i = 0; i < avatar.transform.childCount; i++)
         {
             var t = avatar.transform.GetChild(i);
-            if (t.name != "Armature") continue;
+            if (t.name == "Armature") continue;
             config.Meshes.Add(t);
         }
         var rigBuilder = avatar.AddComponent<RigBuilder>();
