@@ -65,9 +65,23 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   avatars:
-  - {fileID: 9121901684072421731, guid: 7a6d53ab43543974f82051351fe3da56, type: 3}
-  - {fileID: 7845951327085506187, guid: e194b35a8709f9141bcb4e13841dc03f, type: 3}
+  - avatarType: 0
+    prefab: {fileID: 9121901684072421731, guid: 7a6d53ab43543974f82051351fe3da56,
+      type: 3}
+    AvatarURL: 
+    gameObject: {fileID: 0}
+  - avatarType: 0
+    prefab: {fileID: 7845951327085506187, guid: e194b35a8709f9141bcb4e13841dc03f,
+      type: 3}
+    AvatarURL: 
+    gameObject: {fileID: 0}
+  - avatarType: 1
+    prefab: {fileID: 0}
+    AvatarURL: https://d1a370nemizbjq.cloudfront.net/209a1bc2-efed-46c5-9dfd-edc8a1d9cbe4.glb
+    gameObject: {fileID: 0}
   trackedBones: 00000000010000000200000003000000040000000500000006000000070000000800000036000000090000000a0000000d0000000e0000000f0000001000000011000000120000001300000014000000
+  avatarIndex: 0
+  animController: {fileID: 9100000, guid: e34221a6b0e334e4c917f471b488c655, type: 2}
 --- !u!114 &6134176247903083179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,3 +103,5 @@ MonoBehaviour:
   updateFrameRate: 1
   nextUpdateCounter: 0
   initOnStart: 0
+  initialized: 0
+  vrRigInitializer: {fileID: 0}
