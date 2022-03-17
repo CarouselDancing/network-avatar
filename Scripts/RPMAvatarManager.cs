@@ -8,24 +8,23 @@ using Wolf3D.ReadyPlayerMe.AvatarSDK;
 
 public class RPMAvatarManager : NetworkBehaviour
 {
-
     public string AvatarURL = "";
     public GameObject go;
     public RuntimeAnimatorController animationController;
     public bool activateFootRig = false;
     NetworkAvatar networkAvatar;
     public bool IsOwner => isLocalPlayer;
+    public bool initiated = false;
     private void Start()
     {
         networkAvatar = GetComponent<NetworkAvatar>();
         if (IsOwner)
         {
             AvatarURL = GlobalGameManager.GetInstance().config.rpmURL;
-
             if (AvatarURL != "")
             {
-                SetupAvatarControllerFromRPM();
-                UpdateServerAvatar(AvatarURL);
+
+                SetupAvatarControllerFromRPM(AvatarURL);
             }
             else
             {
@@ -35,39 +34,40 @@ public class RPMAvatarManager : NetworkBehaviour
 
     }
 
-
-    [Command]
-    void UpdateServerAvatar(string avatarURL)
+    private void Update()
     {
 
-        Debug.Log("Update server avatar");
-        this.AvatarURL = avatarURL;
-        ChangeClientAvatar(avatarURL);
-        if (AvatarURL != "")
+        if (!initiated && !IsOwner && AvatarURL != "")
         {
-            SetupAvatarControllerFromRPM();
+            SetupAvatarControllerFromRPM(AvatarURL);
         }
+        else if (initiated && IsOwner && AvatarURL != "")
+        { //TODO replace with server side avatarmanagement
+            UpdateSyncvars(AvatarURL);
+        }
+    }
+
+
+    [Command]
+    void UpdateSyncvars(string newurl)
+    {
+        AvatarURL = newurl;
+        ChangeClientAvatar(newurl);
     }
 
     [ClientRpc]
-    void ChangeClientAvatar(string avatarURL)
+    void ChangeClientAvatar(string newurl)
     {
-        this.AvatarURL = avatarURL;
-        if (AvatarURL != "")
-        {
-            SetupAvatarControllerFromRPM();
-        }
-        else
-        {
-            Debug.Log("Error: avatar url is emtpy");
-        }
+        AvatarURL = newurl;
     }
 
-    void SetupAvatarControllerFromRPM()
+
+    void SetupAvatarControllerFromRPM(string url)
     {
+        initiated = true;
         AvatarLoader avatarLoader = new AvatarLoader();
         Debug.Log($"Started loading avatar. [{Time.timeSinceLevelLoad:F2}]");
-        avatarLoader.LoadAvatar(AvatarURL, OnAvatarImported, OnRPMAvatarLoaded);
+        avatarLoader.LoadAvatar(url, OnAvatarImported, OnRPMAvatarLoaded);
     }
 
     public void OnAvatarImported(GameObject avatar)

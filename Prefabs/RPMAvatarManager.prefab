@@ -62,11 +62,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33db990f9d40ecb4196336277939e5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AvatarURL: https://d1a370nemizbjq.cloudfront.net/209a1bc2-efed-46c5-9dfd-edc8a1d9cbe4.glb
-  trackedBones: 
+  syncMode: 0
+  syncInterval: 0.1
+  AvatarURL: 
+  _avatarURL: 
   go: {fileID: 0}
   animationController: {fileID: 9100000, guid: e34221a6b0e334e4c917f471b488c655, type: 2}
   activateFootRig: 0
+  initiated: 0
 --- !u!114 &6134176247903083179
 MonoBehaviour:
   m_ObjectHideFlags: 0
