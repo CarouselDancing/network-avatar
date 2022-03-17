@@ -17,6 +17,54 @@ public class InitVRRig : MonoBehaviour
     public Vector3 leftFootTrackerOffset;
     public Transform rightFootIKTarget;
     public Vector3 rightFootTrackerOffset;
+
+
+
+    public void Setup(CharacterRigConfig config, GameObject avatar)
+    {
+        //TODO store config in VRRig initalizer
+        headIKTarget = config.HeadIKTarget;
+        leftIKTarget = config.LeftHandIKTarget;
+        rightIKTarget = config.RightHandIKTarget;
+
+        bool activateTrackers = GlobalGameManager.GetInstance().config.activateHipTracker;
+        if (activateTrackers)
+        {
+            hipTrackerTarget = config.RootTarget;
+            hipTrackerOffset = new Vector3();
+        }
+
+
+        bool activateFootTrackers = GlobalGameManager.GetInstance().config.activateFootTrackers;
+        if (activateFootTrackers)
+        {
+            leftFootIKTarget = config.LeftFootIKTarget;
+            leftFootTrackerOffset = new Vector3();
+            rightFootIKTarget = config.RightFootIKTarget;
+            rightFootTrackerOffset = new Vector3();
+        }
+
+        scaler = avatar.AddComponent<AvatarScaler>();
+        scaler.root = config.Root;
+        scaler.head = config.Head;
+        scaler.floor = config.ToeTip;
+        scaler.scaleTargets = new List<Transform>();
+        scaler.scaleTargets.Add(config.Root);
+        foreach (var m in config.Meshes)
+            scaler.scaleTargets.Add(m);
+
+        controller = avatar.AddComponent<AvatarController>();
+        controller.headset = Camera.main.transform;
+        controller.head = config.Head;
+        controller.hips = config.Root;
+        controller.cameraTarget = config.CameraTarget;
+        controller.root = config.RootTarget;
+        controller.rootRig = config.RootRig;
+        controller.anim = avatar.GetComponent<Animator>();
+
+    }
+
+
     public void Init()
     {
         var config = Camera.main.GetComponent<VRRigConfig>();

@@ -80,45 +80,19 @@ public class RPMAvatarManager : NetworkBehaviour
 
     public void OnRPMAvatarLoaded(GameObject avatar, AvatarMetaData metaData = null)
     {
+        bool activateFootRig = GlobalGameManager.GetInstance().config.activateFootTrackers;
         var ikRigBuilder = new RPMIKRigBuilder(animationController, activateFootRig);
         var config = ikRigBuilder.Build(avatar);
-        var vrRig = SetupVRRig(avatar, config);
-        RegisterVRRig(avatar.GetComponent<Animator>(), vrRig);
+        SetupRig(config, avatar);
         Debug.Log($"Avatar loaded. [{Time.timeSinceLevelLoad:F2}]\n\n{metaData}");
     }
 
-    public InitVRRig SetupVRRig(GameObject o, CharacterRigConfig config)
+
+    void SetupRig(CharacterRigConfig config, GameObject avatar)
     {
-        var vrRig = o.AddComponent<InitVRRig>();
-        vrRig.headIKTarget = config.HeadIKTarget;
-        vrRig.leftIKTarget = config.LeftHandIKTarget;
-        vrRig.rightIKTarget = config.RightHandIKTarget;
-
-        var scaler = o.AddComponent<AvatarScaler>();
-        scaler.root = config.Root;
-        scaler.head = config.Head;
-        scaler.floor = config.ToeTip;
-        scaler.scaleTargets = new List<Transform>();
-        scaler.scaleTargets.Add(config.Root);
-        foreach (var m in config.Meshes)
-            scaler.scaleTargets.Add(m);
-
-        var controller = o.AddComponent<AvatarController>();
-        controller.headset = Camera.main.transform;
-        controller.head = config.Head;
-        controller.hips = config.Root;
-        controller.cameraTarget = config.CameraTarget;
-        controller.root = config.RootTarget;
-        controller.rootRig = config.RootRig;
-        controller.anim = o.GetComponent<Animator>();
-        vrRig.controller = controller;
-        vrRig.scaler = scaler;
-        return vrRig;
-    }
-
-
-    void RegisterVRRig(Animator animator, InitVRRig vrRig)
-    {
+        InitVRRig vrRig = avatar.AddComponent<InitVRRig>();
+        vrRig.Setup(config, avatar);
+        var animator = avatar.GetComponent<Animator>();
         networkAvatar.vrRigInitializer = vrRig;
         bool activatedVRRig = networkAvatar.Init(animator);
 
@@ -134,5 +108,4 @@ public class RPMAvatarManager : NetworkBehaviour
             }
         }
     }
-
 }
