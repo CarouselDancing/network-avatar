@@ -8,7 +8,7 @@ using Wolf3D.ReadyPlayerMe.AvatarSDK;
 
 public class RPMAvatarManager : NetworkBehaviour
 {
-    [SyncVar]
+
     public string AvatarURL = "";
     public GameObject go;
     public RuntimeAnimatorController animationController;
@@ -17,11 +17,42 @@ public class RPMAvatarManager : NetworkBehaviour
     public bool IsOwner => isLocalPlayer;
     private void Start()
     {
+        networkAvatar = GetComponent<NetworkAvatar>();
         if (IsOwner)
         {
             AvatarURL = GlobalGameManager.GetInstance().config.rpmURL;
+
+            if (AvatarURL != "")
+            {
+                SetupAvatarControllerFromRPM();
+                UpdateServerAvatar(AvatarURL);
+            }
+            else
+            {
+                Debug.Log("Error: avatar url is emtpy");
+            }
         }
-        networkAvatar = GetComponent<NetworkAvatar>();
+
+    }
+
+
+    [Command]
+    void UpdateServerAvatar(string avatarURL)
+    {
+
+        Debug.Log("Update server avatar");
+        this.AvatarURL = avatarURL;
+        ChangeClientAvatar(avatarURL);
+        if (AvatarURL != "")
+        {
+            SetupAvatarControllerFromRPM();
+        }
+    }
+
+    [ClientRpc]
+    void ChangeClientAvatar(string avatarURL)
+    {
+        this.AvatarURL = avatarURL;
         if (AvatarURL != "")
         {
             SetupAvatarControllerFromRPM();
