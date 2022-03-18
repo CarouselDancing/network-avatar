@@ -5,6 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+public class TrackerConfig
+{
+    public int deviceID;
+    public float[] posOffset;
+    public float[] rotOffset;
+
+}
+
+[Serializable]
 public class ClientConfig
 {
     public string url = "localhost";
@@ -12,7 +21,9 @@ public class ClientConfig
     public string rpmURL = "https://d1a370nemizbjq.cloudfront.net/209a1bc2-efed-46c5-9dfd-edc8a1d9cbe4.glb";
     public bool activateHipTracker;
     public bool activateFootTrackers;
-
+    public TrackerConfig hipTracker;
+    public TrackerConfig leftFootTracker;
+    public TrackerConfig rightFootTracker;
 }
 
 public class GlobalGameManager

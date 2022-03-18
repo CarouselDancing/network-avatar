@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
+
 public class InitVRRig : MonoBehaviour
 {
 
@@ -11,37 +12,39 @@ public class InitVRRig : MonoBehaviour
     public Transform headIKTarget;
     public Transform leftIKTarget;
     public Transform rightIKTarget;
+
     public Transform hipTrackerTarget;
-    public Vector3 hipTrackerOffset;
+    public TrackerConfig hipConfig;
+
     public Transform leftFootIKTarget;
-    public Vector3 leftFootTrackerOffset;
+    public TrackerConfig leftFootConfig;
+
     public Transform rightFootIKTarget;
-    public Vector3 rightFootTrackerOffset;
+    public TrackerConfig rightFootConfig;
 
 
 
     public void Setup(CharacterRigConfig config, GameObject avatar)
     {
+        var globalConfig = GlobalGameManager.GetInstance().config;
         //TODO store config in VRRig initalizer
         headIKTarget = config.HeadIKTarget;
         leftIKTarget = config.LeftHandIKTarget;
         rightIKTarget = config.RightHandIKTarget;
-
-        bool activateTrackers = GlobalGameManager.GetInstance().config.activateHipTracker;
-        if (activateTrackers)
+        if (globalConfig.activateHipTracker)
         {
             hipTrackerTarget = config.RootTarget;
-            hipTrackerOffset = new Vector3();
+            hipConfig = globalConfig.hipTracker;
         }
 
 
-        bool activateFootTrackers = GlobalGameManager.GetInstance().config.activateFootTrackers;
-        if (activateFootTrackers)
+        if (globalConfig.activateFootTrackers)
         {
             leftFootIKTarget = config.LeftFootIKTarget;
-            leftFootTrackerOffset = new Vector3();
+            leftFootConfig = globalConfig.leftFootTracker;
+
             rightFootIKTarget = config.RightFootIKTarget;
-            rightFootTrackerOffset = new Vector3();
+            rightFootConfig = globalConfig.rightFootTracker;
         }
 
         scaler = avatar.AddComponent<AvatarScaler>();
@@ -67,8 +70,8 @@ public class InitVRRig : MonoBehaviour
 
     public void Init()
     {
-        var config = Camera.main.GetComponent<VRRigConfig>();
-        if (config == null)
+        var trackerConfig = Camera.main.GetComponent<VRRigConfig>();
+        if (trackerConfig == null)
         {
             scaler.enabled = false;
             controller.enabled = false;
@@ -77,25 +80,25 @@ public class InitVRRig : MonoBehaviour
         }
         scaler.cameraTarget = Camera.main.transform;
         controller.headset = Camera.main.transform;
-        controller.rightController = config.rightController;
-        controller.leftController = config.leftController;
+        controller.rightController = trackerConfig.rightController;
+        controller.leftController = trackerConfig.leftController;
 
-        config.leftControllerTarget.target = leftIKTarget;
-        config.leftControllerTarget.offset = Vector3.zero;
-        config.leftControllerTarget.initialized = true;
-        config.leftControllerTarget.enabled = true;
+        trackerConfig.leftControllerTarget.target = leftIKTarget;
+        trackerConfig.leftControllerTarget.offset = Vector3.zero;
+        trackerConfig.leftControllerTarget.initialized = true;
+        trackerConfig.leftControllerTarget.enabled = true;
 
-        config.rightControllerTarget.target = rightIKTarget;
-        config.rightControllerTarget.offset = Vector3.zero;
-        config.rightControllerTarget.initialized = true;
-        config.rightControllerTarget.enabled = true;
+        trackerConfig.rightControllerTarget.target = rightIKTarget;
+        trackerConfig.rightControllerTarget.offset = Vector3.zero;
+        trackerConfig.rightControllerTarget.initialized = true;
+        trackerConfig.rightControllerTarget.enabled = true;
 
-        if (headIKTarget != null && config.headTrackerTarget != null)
+        if (headIKTarget != null && trackerConfig.headTrackerTarget != null)
         {
-            config.headTrackerTarget.target = headIKTarget;
-            config.headTrackerTarget.offset = Vector3.zero;
-            config.headTrackerTarget.initialized = true;
-            config.headTrackerTarget.enabled = true;
+            trackerConfig.headTrackerTarget.target = headIKTarget;
+            trackerConfig.headTrackerTarget.offset = Vector3.zero;
+            trackerConfig.headTrackerTarget.initialized = true;
+            trackerConfig.headTrackerTarget.enabled = true;
             Debug.Log("activate head ik");
         }
         else
@@ -103,27 +106,25 @@ public class InitVRRig : MonoBehaviour
             Debug.Log("deactivate head ik");
         }
 
-        if (hipTrackerTarget != null && config.hipTrackerTarget != null)
+        if (hipTrackerTarget != null && trackerConfig.hipTrackerTarget != null)
         {
-            config.hipTrackerTarget.target = hipTrackerTarget;
-            config.hipTrackerTarget.offset = hipTrackerOffset;
-            config.hipTrackerTarget.initialized = true;
-            config.hipTrackerTarget.enabled = true;
+            trackerConfig.hipTrackerTarget.target = hipTrackerTarget;
+            trackerConfig.hipTrackerTarget.SetConfig(hipConfig);
+            trackerConfig.hipTrackerTarget.initialized = true;
+            trackerConfig.hipTrackerTarget.enabled = true;
         }
 
-        if (leftFootIKTarget != null && config.leftFootTarget != null)
+        if (leftFootIKTarget != null && trackerConfig.leftFootTarget != null && rightFootIKTarget != null && trackerConfig.rightFootTarget != null)
         {
-            config.leftFootTarget.target = leftFootIKTarget;
-            config.leftFootTarget.offset = leftFootTrackerOffset;
-            config.leftFootTarget.initialized = true;
-            config.leftFootTarget.enabled = true;
-        }
-        if (rightFootIKTarget != null && config.rightFootTarget != null)
-        {
-            config.rightFootTarget.target = rightFootIKTarget;
-            config.rightFootTarget.offset = rightFootTrackerOffset;
-            config.rightFootTarget.initialized = true;
-            config.rightFootTarget.enabled = true;
+            trackerConfig.leftFootTarget.target = leftFootIKTarget;
+            trackerConfig.leftFootTarget.SetConfig(leftFootConfig);
+            trackerConfig.leftFootTarget.initialized = true;
+            trackerConfig.leftFootTarget.enabled = true;
+     
+            trackerConfig.rightFootTarget.target = rightFootIKTarget;
+            trackerConfig.rightFootTarget.SetConfig(rightFootConfig);
+            trackerConfig.rightFootTarget.initialized = true;
+            trackerConfig.rightFootTarget.enabled = true;
         }
     }
 
