@@ -256,9 +256,10 @@ namespace Siccity.GLTFUtility {
 			importTasks.Add(skinTask);
 			GLTFNode.ImportTask nodeTask = new GLTFNode.ImportTask(gltfObject.nodes, meshTask, skinTask, gltfObject.cameras);
 			importTasks.Add(nodeTask);
-
-			// Ignite
-			for (int i = 0; i < importTasks.Count; i++) {
+            //Debug.Log("waiting before starting the tasks helps somehow");
+            yield return new WaitForSeconds(0.01f);
+            // Ignite
+            for (int i = 0; i < importTasks.Count; i++) {
 				TaskSupervisor(importTasks[i], onProgress).RunCoroutine();
 			}
 
@@ -271,8 +272,9 @@ namespace Siccity.GLTFUtility {
 			// Close file streams
 			foreach (var item in bufferTask.Result) {
 				item.Dispose();
-			}
-		}
+            }
+
+        }
 
 		/// <summary> Keeps track of which threads to start when </summary>
 		private static IEnumerator TaskSupervisor(ImportTask importTask, Action<float> onProgress = null) {
