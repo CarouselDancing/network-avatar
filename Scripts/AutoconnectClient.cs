@@ -17,7 +17,7 @@ public class AutoconnectClient : MonoBehaviour
         networkManager = GetComponent<NetworkManager>();
         transport = GetComponent<KcpTransport>();
 
-        config = GlobalGameManager.GetInstance().config;
+        config = GlobalGameState.GetInstance().config;
         networkManager.networkAddress = config.url;
         transport.Port = (ushort)config.port;
         networkManager.StartClient();

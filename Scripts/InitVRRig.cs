@@ -26,7 +26,7 @@ public class InitVRRig : MonoBehaviour
 
     public void Setup(CharacterRigConfig config, GameObject avatar)
     {
-        var globalConfig = GlobalGameManager.GetInstance().config;
+        var globalConfig = GlobalGameState.GetInstance().config;
         //TODO store config in VRRig initalizer
         headIKTarget = config.HeadIKTarget;
         leftIKTarget = config.LeftHandIKTarget;

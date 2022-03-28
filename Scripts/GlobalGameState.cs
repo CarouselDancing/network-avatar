@@ -35,12 +35,12 @@ public class ClientConfig
     }
 }
 
-public class GlobalGameManager
+public class GlobalGameState
 {
     public ClientConfig config;
-    private static GlobalGameManager instance;
+    private static GlobalGameState instance;
 
-    private GlobalGameManager()
+    private GlobalGameState()
     {
         Load();
     }
@@ -55,11 +55,11 @@ public class GlobalGameManager
 
     }
 
-    public static GlobalGameManager GetInstance()
+    public static GlobalGameState GetInstance()
     {
         if (instance == null)
         {
-            instance = new GlobalGameManager();
+            instance = new GlobalGameState();
         }
         return instance;
     }

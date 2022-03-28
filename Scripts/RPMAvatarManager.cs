@@ -20,7 +20,7 @@ public class RPMAvatarManager : NetworkBehaviour
         networkAvatar = GetComponent<NetworkAvatar>();
         if (IsOwner)
         {
-            AvatarURL = GlobalGameManager.GetInstance().config.rpmURL;
+            AvatarURL = GlobalGameState.GetInstance().config.rpmURL;
             if (AvatarURL != "")
             {
 
@@ -80,7 +80,7 @@ public class RPMAvatarManager : NetworkBehaviour
 
     public void OnRPMAvatarLoaded(GameObject avatar, AvatarMetaData metaData = null)
     {
-        bool activateFootRig = GlobalGameManager.GetInstance().config.activateFootTrackers;
+        bool activateFootRig = GlobalGameState.GetInstance().config.activateFootTrackers;
         var ikRigBuilder = new RPMIKRigBuilder(animationController, activateFootRig);
         var config = ikRigBuilder.Build(avatar);
         SetupRig(config, avatar);
