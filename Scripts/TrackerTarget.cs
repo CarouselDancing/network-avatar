@@ -21,7 +21,7 @@ public class TrackerTarget : MonoBehaviour
     {
         if(!initialized) SetOffset();
         target.position = transform.position + transform.rotation * offset;
-        target.rotation = Quaternion.Euler(rotationOffset) * transform.rotation;
+        target.rotation = transform.rotation * Quaternion.Euler(rotationOffset);
     }
 
     public void SetConfig(TrackerConfig config)
