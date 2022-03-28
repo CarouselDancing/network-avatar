@@ -24,6 +24,15 @@ public class ClientConfig
     public TrackerConfig hipTracker;
     public TrackerConfig leftFootTracker;
     public TrackerConfig rightFootTracker;
+    public bool activateDebugVis;
+
+    override public string ToString()
+    {
+        var s = "activate hip:" + activateHipTracker +" tracker id: " + hipTracker.deviceID.ToString() + "\n";
+        s += "activate feet:" + activateFootTrackers + " left id: " + leftFootTracker.deviceID.ToString() +" right id: "+ rightFootTracker.deviceID.ToString() + "\n";
+        
+        return s;
+    }
 }
 
 public class GlobalGameManager
@@ -42,6 +51,7 @@ public class GlobalGameManager
         string configFile = Path.Combine(Application.streamingAssetsPath, "config.json");
         string configText = File.ReadAllText(configFile);
         config = JsonUtility.FromJson<ClientConfig>(configText);
+        Debug.Log(config.ToString());
 
     }
 
