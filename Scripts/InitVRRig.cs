@@ -14,13 +14,10 @@ public class InitVRRig : MonoBehaviour
     public Transform rightIKTarget;
 
     public Transform hipTrackerTarget;
-    public TrackerConfig hipConfig;
 
     public Transform leftFootIKTarget;
-    public TrackerConfig leftFootConfig;
 
     public Transform rightFootIKTarget;
-    public TrackerConfig rightFootConfig;
 
 
 
@@ -34,17 +31,14 @@ public class InitVRRig : MonoBehaviour
         if (globalConfig.activateHipTracker)
         {
             hipTrackerTarget = config.RootTarget;
-            hipConfig = globalConfig.hipTracker;
         }
 
 
         if (globalConfig.activateFootTrackers)
         {
             leftFootIKTarget = config.LeftFootIKTarget;
-            leftFootConfig = globalConfig.leftFootTracker;
 
             rightFootIKTarget = config.RightFootIKTarget;
-            rightFootConfig = globalConfig.rightFootTracker;
         }
 
         scaler = avatar.AddComponent<AvatarScaler>();
@@ -109,7 +103,6 @@ public class InitVRRig : MonoBehaviour
         if (hipTrackerTarget != null && trackerConfig.hipTrackerTarget != null)
         {
             trackerConfig.hipTrackerTarget.target = hipTrackerTarget;
-            trackerConfig.hipTrackerTarget.SetConfig(hipConfig);
             trackerConfig.hipTrackerTarget.initialized = true;
             trackerConfig.hipTrackerTarget.enabled = true;
         }
@@ -117,12 +110,10 @@ public class InitVRRig : MonoBehaviour
         if (leftFootIKTarget != null && trackerConfig.leftFootTarget != null && rightFootIKTarget != null && trackerConfig.rightFootTarget != null)
         {
             trackerConfig.leftFootTarget.target = leftFootIKTarget;
-            trackerConfig.leftFootTarget.SetConfig(leftFootConfig);
             trackerConfig.leftFootTarget.initialized = true;
             trackerConfig.leftFootTarget.enabled = true;
      
             trackerConfig.rightFootTarget.target = rightFootIKTarget;
-            trackerConfig.rightFootTarget.SetConfig(rightFootConfig);
             trackerConfig.rightFootTarget.initialized = true;
             trackerConfig.rightFootTarget.enabled = true;
         }
