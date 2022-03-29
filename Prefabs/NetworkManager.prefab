@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2312243950608950803}
   - component: {fileID: 2312243950608950800}
   - component: {fileID: 2312243950608950801}
-  - component: {fileID: 5346533362005977289}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -88,52 +87,3 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 1
   statisticsLog: 0
---- !u!114 &5346533362005977289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2312243950608950814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b04119fc64cd6048b4723140026776e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config:
-    url: localhost
-    port: 7777
-    rpmURL: https://d1a370nemizbjq.cloudfront.net/209a1bc2-efed-46c5-9dfd-edc8a1d9cbe4.glb
-    activateHipTracker: 0
-    activateFootTrackers: 0
-    hipTracker:
-      deviceID: 0
-      posOffset:
-      - 0
-      - 0
-      - 0
-      rotOffset:
-      - 0
-      - 0
-      - 0
-    leftFootTracker:
-      deviceID: 0
-      posOffset:
-      - 0
-      - 0
-      - 0
-      rotOffset:
-      - 0
-      - 0
-      - 0
-    rightFootTracker:
-      deviceID: 0
-      posOffset:
-      - 0
-      - 0
-      - 0
-      rotOffset:
-      - 0
-      - 0
-      - 0
-    activateDebugVis: 0
