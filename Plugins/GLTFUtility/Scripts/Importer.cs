@@ -256,10 +256,9 @@ namespace Siccity.GLTFUtility {
 			importTasks.Add(skinTask);
 			GLTFNode.ImportTask nodeTask = new GLTFNode.ImportTask(gltfObject.nodes, meshTask, skinTask, gltfObject.cameras);
 			importTasks.Add(nodeTask);
-            //Debug.Log("waiting before starting the tasks helps somehow");
-            yield return new WaitForSeconds(0.01f);
-            // Ignite
-            for (int i = 0; i < importTasks.Count; i++) {
+
+			// Ignite
+			for (int i = 0; i < importTasks.Count; i++) {
 				TaskSupervisor(importTasks[i], onProgress).RunCoroutine();
 			}
 
@@ -272,22 +271,31 @@ namespace Siccity.GLTFUtility {
 			// Close file streams
 			foreach (var item in bufferTask.Result) {
 				item.Dispose();
-            }
-
-        }
+			}
+		}
 
 		/// <summary> Keeps track of which threads to start when </summary>
-		private static IEnumerator TaskSupervisor(ImportTask importTask, Action<float> onProgress = null) {
+		private static IEnumerator TaskSupervisor(ImportTask importTask, Action<float> onProgress = null)
+		{
 			// Wait for required results to complete before starting
 			while (!importTask.IsReady) yield return null;
-			// Start threaded task
-			importTask.task.Start();
-			// Wait for task to complete
-			while (!importTask.task.IsCompleted) yield return null;
+			// Prevent asynchronous data disorder
+			yield return null;
+			if (importTask.task != null)
+			{
+				// Start threaded task
+				importTask.task.Start();
+				// Wait for task to complete
+				while (!importTask.task.IsCompleted) yield return null;
+				// Prevent asynchronous data disorder
+				yield return new WaitForSeconds(0.1f);
+			}
 			// Run additional unity code on main thread
 			importTask.OnCoroutine(onProgress).RunCoroutine();
 			//Wait for additional coroutines to complete
 			while (!importTask.IsCompleted) { yield return null; }
+			// Prevent asynchronous data disorder
+			yield return new WaitForSeconds(0.1f);
 		}
 #endregion
 

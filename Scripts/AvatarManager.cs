@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Wolf3D.ReadyPlayerMe.AvatarSDK;
+using ReadyPlayerMe;
 
 
 public enum AvatarType {

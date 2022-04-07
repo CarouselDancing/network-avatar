@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Wolf3D.ReadyPlayerMe.AvatarSDK;
+using ReadyPlayerMe;
 
 
 public class RPMAvatarManager : NetworkBehaviour
@@ -78,13 +78,13 @@ public class RPMAvatarManager : NetworkBehaviour
     }
 
 
-    public void OnRPMAvatarLoaded(GameObject avatar, AvatarMetaData metaData = null)
+    public void OnRPMAvatarLoaded(GameObject avatar, AvatarMetaData metaData=null)
     {
         bool activateFootRig = GlobalGameState.GetInstance().config.activateFootTrackers;
         var ikRigBuilder = new RPMIKRigBuilder(animationController, activateFootRig);
         var config = ikRigBuilder.Build(avatar);
         SetupRig(config, avatar);
-        Debug.Log($"Avatar loaded. [{Time.timeSinceLevelLoad:F2}]\n\n{metaData}");
+        Debug.Log($"Avatar loaded. [{Time.timeSinceLevelLoad:F2}]\n\n");
     }
 
 
