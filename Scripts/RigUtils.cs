@@ -6,17 +6,19 @@ using UnityEngine.Animations.Rigging;
 public class RPMIKRigBuilder
 {
     bool _activateFootRig;
+    bool _activateRig;
     RuntimeAnimatorController _animController;
     Dictionary<string, Transform> transformMap;
 
-    public RPMIKRigBuilder(RuntimeAnimatorController animController, bool activateFootRig = true)
+    public RPMIKRigBuilder(RuntimeAnimatorController animController, bool activateFootRig = true, bool activateRig=true)
     {
         _animController = animController;
         _activateFootRig = activateFootRig;
+        _activateRig = activateRig;
     }
 
-    public CharacterRigConfig Build(GameObject avatar)
-    {
+    public CharacterRigConfig BuildConfig(GameObject avatar){
+
         var config = avatar.AddComponent<CharacterRigConfig>();
         config.Meshes = new List<Transform>();
         for (int i = 0; i < avatar.transform.childCount; i++)
@@ -25,12 +27,18 @@ public class RPMIKRigBuilder
             if (t.name == "Armature") continue;
             config.Meshes.Add(t);
         }
-        var rigBuilder = avatar.AddComponent<RigBuilder>();
         transformMap = new Dictionary<string, Transform>();
         UpdateTransformMap(avatar.transform);
         config.Root = transformMap["Hips"];
         config.Head = transformMap["Head"];
         config.ToeTip = transformMap["RightToe_End"];
+        return config;
+    }
+
+    public CharacterRigConfig Build(GameObject avatar)
+    {
+        var config = BuildConfig(avatar);
+        var rigBuilder = avatar.AddComponent<RigBuilder>();
         CreateCameraTarget(ref config);
         CreateRootRig(avatar.transform, rigBuilder, ref config);
         CreateArmRig(avatar.transform, rigBuilder, ref config);
@@ -42,7 +50,7 @@ public class RPMIKRigBuilder
         return config;
     }
 
-    void UpdateTransformMap(Transform node)
+    public void UpdateTransformMap(Transform node)
     {
         transformMap[node.name] = node;
         for (int i = 0; i < node.childCount; i++)
@@ -67,6 +75,7 @@ public class RPMIKRigBuilder
         var rootRigObject = new GameObject("RootRig");
         rootRigObject.transform.parent = root;
         var rootRig = rootRigObject.AddComponent<Rig>();
+        rootRig.weight = _activateRig ? 1 : 0;
         var rootTarget = new GameObject("RootTarget");
         rootTarget.transform.parent = rootRigObject.transform;
         rootTarget.transform.position = transformMap["Hips"].position;
@@ -121,7 +130,7 @@ public class RPMIKRigBuilder
         var armRigObject = new GameObject("ArmRig");
         armRigObject.transform.parent = root;
         var armRig = armRigObject.AddComponent<Rig>();
-
+        armRig.weight = _activateRig ? 1 : 0;
         config.RightHandIKTarget = CreateTwoBoneIKConstraint(armRigObject, "RightArm", "RightForeArm", "RightHand", "RightHandTarget");
 
         config.LeftHandIKTarget = CreateTwoBoneIKConstraint(armRigObject, "LeftArm", "LeftForeArm", "LeftHand", "LeftHandTarget");
@@ -137,7 +146,7 @@ public class RPMIKRigBuilder
         var headRig = headRigObject.AddComponent<Rig>();
 
         config.HeadIKTarget = CreateTwoBoneIKConstraint(headRigObject, "Spine", "Spine2", "Head", "HeadTarget");
-
+        headRig.weight = _activateRig ? 1 : 0;
         var layer = new RigLayer(headRig);
         rigBuilder.layers.Add(layer);
     }
@@ -148,7 +157,7 @@ public class RPMIKRigBuilder
         var legRig = legRigObject.AddComponent<Rig>();
 
         
-        legRig.weight = _activateFootRig ? 1 : 0;
+        legRig.weight = ( _activateRig &&_activateFootRig) ? 1 : 0;
        
         config.RightFootIKTarget = CreateTwoBoneIKConstraint(legRigObject, "RightUpLeg", "RightLeg", "RightFoot", "RightFootTarget");
 
