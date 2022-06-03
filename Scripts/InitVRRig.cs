@@ -21,7 +21,7 @@ public class InitVRRig : MonoBehaviour
 
 
 
-    public void Setup(CharacterRigConfig config, GameObject avatar)
+    public void SetupAvatarController(CharacterRigConfig config, GameObject avatar)
     {
         var globalConfig = GlobalGameState.GetInstance().config;
         //TODO store config in VRRig initalizer
@@ -62,7 +62,7 @@ public class InitVRRig : MonoBehaviour
     }
 
 
-    public void Init()
+    public void ConnectTrackers()
     {
         var trackerConfig = Camera.main.GetComponent<VRRigConfig>();
         if (trackerConfig == null)

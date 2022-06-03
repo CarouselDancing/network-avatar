@@ -10,30 +10,25 @@ using Mirror;
 using System.Linq;
 
 
-public class NetworkAvatar : NetworkBehaviour
+public class NetworkAgent : NetworkBehaviour
 {
 
 
-    protected SyncList<Quaternion> rotations = new SyncList<Quaternion>();
-    [SyncVar]
+    protected List<Quaternion> rotations = new List<Quaternion>();
     protected Vector3 _rootPos;
-    [SyncVar]
-    protected Quaternion _rootRot;
+    Quaternion _rootRot;
 
     // bones of the avatar
     public List<HumanBodyBones> trackedBones;
     protected Animator anim;
     public List<Transform> bones;
     public Transform root;
-    public bool visServer = false;
     public int updateFrameRate = 1;
     public int nextUpdateCounter;
     public bool initOnStart = true;
     public bool initialized = false;
     public string armatureName = "Armature";
     public bool useRootRotation = true;
-    public bool IsOwner => isLocalPlayer;
-    public bool runOnserver = false;
 
     void Start()
     {
@@ -58,23 +53,10 @@ public class NetworkAvatar : NetworkBehaviour
             var armature = GetComponentsInChildren<Transform>().First(x => x.name == armatureName);
             if (armature != null) bones.Add(armature);
         }
-        anim.enabled = IsOwner;
+        anim.enabled = false;
         Debug.Log("Init Network Agent");
         initialized = true;
         return initialized;
-    }
-
-
-
-    [Command]
-    void UpdateSyncvars(Vector3 rootPos, Quaternion rootRot, List<Quaternion> _rotations)
-    {
-        _rootPos = rootPos;
-        _rootRot = rootRot;
-        rotations.Clear();
-        foreach (var q in _rotations) {
-            rotations.Add(q);
-        }
     }
 
     void Update()
@@ -87,8 +69,7 @@ public class NetworkAvatar : NetworkBehaviour
             return;
         }
 
-        if (!runOnserver && !visServer && !isClient) return;
-        if ((isClient && IsOwner) || (runOnserver && isServer))
+        if ( isServer)
         {
 
             var rots = new List<Quaternion>();
@@ -115,13 +96,16 @@ public class NetworkAvatar : NetworkBehaviour
 
     }
 
-    private void OnGUI()
+
+    [ClientRpc]
+    void UpdateSyncvars(Vector3 rootPos, Quaternion rootRot, List<Quaternion> _rotations)
     {
-        if (IsOwner)
-        {
-            GUILayout.BeginArea(new Rect(200, 10, 300, 300));
-            GUILayout.Label($"Network ID: {this.netId}");
-            GUILayout.EndArea();
+        _rootPos = rootPos;
+        _rootRot = rootRot;
+        rotations.Clear();
+        foreach (var q in _rotations) {
+            rotations.Add(q);
         }
     }
+
 }

@@ -40,6 +40,8 @@ public class AvatarManager : NetworkBehaviour
     NetworkAvatar networkAvatar;
     public RuntimeAnimatorController animController;
     public bool activateFootRig = false;
+    
+    public bool IsOwner => isLocalPlayer;
     void Start()
     {
         networkAvatar = GetComponent<NetworkAvatar>();
@@ -120,8 +122,18 @@ public class AvatarManager : NetworkBehaviour
 
     void RegisterVRRig(Animator animator, InitVRRig vrRig)
     {
-        networkAvatar.vrRigInitializer = vrRig;
         networkAvatar.Init(animator);
+        if (IsOwner)
+        {
+            vrRig.ConnectTrackers();
+            Debug.Log("init vr rig");
+        }
+        else
+        {
+            vrRig.Deactivate();
+            Debug.Log("deactivate vr rig");
+        }
+
     }
 
     [Command]

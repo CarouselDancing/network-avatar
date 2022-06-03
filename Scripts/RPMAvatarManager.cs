@@ -91,21 +91,28 @@ public class RPMAvatarManager : NetworkBehaviour
     void SetupRig(CharacterRigConfig config, GameObject avatar)
     {
         InitVRRig vrRig = avatar.AddComponent<InitVRRig>();
-        vrRig.Setup(config, avatar);
+        vrRig.SetupAvatarController(config, avatar);
         var animator = avatar.GetComponent<Animator>();
-        networkAvatar.vrRigInitializer = vrRig;
-        bool activatedVRRig = networkAvatar.Init(animator);
-
-        if (activatedVRRig) return;
-
-        for (int i = 0; i < animator.transform.childCount; i++)
+        networkAvatar.Init(animator);
+        
+        if (IsOwner)
         {
-            var t = animator.transform.GetChild(i);
-            if (t.name == "Armature")
+            vrRig.ConnectTrackers();
+            Debug.Log("init vr rig");
+            for (int i = 0; i < animator.transform.childCount; i++)
             {
-                t.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-                break;
+                var t = animator.transform.GetChild(i);
+                if (t.name == "Armature")
+                {
+                    t.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+                    break;
+                }
             }
+        }
+        else
+        {
+            vrRig.Deactivate();
+            Debug.Log("deactivate vr rig");
         }
     }
 }
