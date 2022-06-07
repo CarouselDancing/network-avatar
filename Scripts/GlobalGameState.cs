@@ -38,15 +38,16 @@ public class ClientConfig
 public class GlobalGameState
 {
     public ClientConfig config;
-    private static GlobalGameState instance;
+    protected static GlobalGameState instance;
 
-    private GlobalGameState()
+
+    protected GlobalGameState()
     {
         Load();
     }
 
 
-    void Load()
+    protected void Load()
     {
         string configFile = Path.Combine(Application.streamingAssetsPath, "config.json");
         string configText = File.ReadAllText(configFile);
@@ -64,6 +65,4 @@ public class GlobalGameState
         return instance;
     }
 }
-
-
 
