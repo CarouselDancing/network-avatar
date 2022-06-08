@@ -6,19 +6,18 @@ using Mirror;
 using ReadyPlayerMe;
 using Carousel.FigureGenerator;
 
-
 public class RPMAvatarManager : NetworkBehaviour
 {
     public string AvatarURL = "";
     public GameObject go;
     public RuntimeAnimatorController animationController;
     public bool activateFootRig = false;
-    NetworkAvatar networkAvatar;
+    protected NetworkAvatar networkAvatar;
     public bool IsOwner => isLocalPlayer;
     public bool initiated = false;
     public FigureGeneratorSettings settings;
     public int figureVersion;
-    private void Start()
+    virtual public void Start()
     {
         networkAvatar = GetComponent<NetworkAvatar>();
         if (IsOwner)
@@ -159,4 +158,5 @@ public class RPMAvatarManager : NetworkBehaviour
         if (layer != "") GeneratorUtils.SetLayerRecursively(o.transform, LayerMask.NameToLayer(layer));
          return root.GetComponent<Rigidbody>();
     }
+
 }

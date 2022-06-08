@@ -118,9 +118,9 @@ MonoBehaviour:
   rightFoot: {fileID: 6601363404923112111, guid: b9991eb4882c22d4ba9471772b7c66ee, type: 3}
   headPrefab: {fileID: 370539650439615074, guid: 29c2d32eeeff4d24496b3856ee173586, type: 3}
   reference: {fileID: 5918097597002162060, guid: 48864c1e2797cb442b2f0810282fad59, type: 3}
-  footOffset: 0
+  footOffset: -0.1
   lengthScaleFactor: 0.8
-  headOffset: 0
+  headOffset: 0.1
   referenceBodies:
   - name: Hips
     refName: butt
