@@ -65,7 +65,6 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   AvatarURL: 
-  _avatarURL: 
   go: {fileID: 0}
   animationController: {fileID: 9100000, guid: e34221a6b0e334e4c917f471b488c655, type: 2}
   activateFootRig: 0
@@ -79,12 +78,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7845951327085506187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a93d17b88d3da04e801df968e048c84, type: 3}
+  m_Script: {fileID: 11500000, guid: 2db71c1abb5ec92428d3f74597b54aea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  trackedBones: 00000000010000000200000003000000040000000500000006000000070000000800000036000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000
+  trackedBones: 00000000070000000800000036000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000010000000200000003000000040000000500000006000000
   bones: []
   root: {fileID: 0}
   visServer: 0
@@ -92,4 +91,6 @@ MonoBehaviour:
   nextUpdateCounter: 0
   initOnStart: 0
   initialized: 0
-  vrRigInitializer: {fileID: 0}
+  armatureName: Armature
+  useRootRotation: 1
+  runOnserver: 0
