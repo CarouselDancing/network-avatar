@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using ReadyPlayerMe;
+using Carousel.FigureGenerator;
 
 
 public class RPMAvatarManager : NetworkBehaviour
@@ -15,6 +16,8 @@ public class RPMAvatarManager : NetworkBehaviour
     NetworkAvatar networkAvatar;
     public bool IsOwner => isLocalPlayer;
     public bool initiated = false;
+    public FigureGeneratorSettings settings;
+    public int figureVersion;
     private void Start()
     {
         networkAvatar = GetComponent<NetworkAvatar>();
@@ -114,5 +117,46 @@ public class RPMAvatarManager : NetworkBehaviour
             vrRig.Deactivate();
             Debug.Log("deactivate vr rig");
         }
+        CreateRigidBodyFigure(avatar, config.Root, settings.modelLayer);
+    }
+
+     Rigidbody CreateRigidBodyFigure(GameObject o, Transform root, string layer, bool isKinematic=true, bool hide=false)
+    {
+        var rbGenerator = o.AddComponent<RigidBodyFigureGenerator>();
+        rbGenerator.width = settings.width;
+        rbGenerator.mat = settings.mat;
+        rbGenerator.IgnoreList = new List<string>();
+        rbGenerator.leftFoot = settings.leftFoot;
+        rbGenerator.rightFoot = settings.rightFoot;
+        rbGenerator.headPrefab = settings.headPrefab;
+        rbGenerator.reference = settings.reference;
+        rbGenerator.footOffset = settings.footOffset;
+        rbGenerator.lengthScaleFactor = settings.lengthScaleFactor;
+        rbGenerator.headOffset = settings.headOffset;
+        rbGenerator.createColliderAsChild = settings.createColliderAsChild;
+        rbGenerator.root = root;
+        rbGenerator.IgnoreList = new List<string>();
+        rbGenerator.version = figureVersion;
+        rbGenerator.figureType = settings.figureType;
+        rbGenerator.isKinematic = isKinematic;
+        rbGenerator.referenceBodies = new List<RigidBodyFigureGenerator.RefBodyMapping>();
+
+        foreach (var r in settings.referenceBodies)
+        {
+            var _r = new RigidBodyFigureGenerator.RefBodyMapping { name = r.name, refName = r.refName };
+            rbGenerator.referenceBodies.Add(_r);
+        }
+        rbGenerator.endEffectors = new List<string>();
+        foreach (var n in settings.endEffectors)
+        {
+            rbGenerator.endEffectors.Add(n);
+        }
+        
+        //animTarget.AddComponent<CharacterController>();
+        rbGenerator.DestroyWhenDone = true;
+        rbGenerator.verbose = false;
+        rbGenerator.Generate();
+        if (layer != "") GeneratorUtils.SetLayerRecursively(o.transform, LayerMask.NameToLayer(layer));
+         return root.GetComponent<Rigidbody>();
     }
 }

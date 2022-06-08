@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6012759102592966613}
   - component: {fileID: 5393533575899648032}
   - component: {fileID: 6134176247903083179}
+  - component: {fileID: -3040986160783487964}
   m_Layer: 0
   m_Name: RPMAvatarManager
   m_TagString: Untagged
@@ -69,6 +70,8 @@ MonoBehaviour:
   animationController: {fileID: 9100000, guid: e34221a6b0e334e4c917f471b488c655, type: 2}
   activateFootRig: 0
   initiated: 0
+  settings: {fileID: -3040986160783487964}
+  figureVersion: 2
 --- !u!114 &6134176247903083179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +89,7 @@ MonoBehaviour:
   trackedBones: 00000000070000000800000036000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000010000000200000003000000040000000500000006000000
   bones: []
   root: {fileID: 0}
-  visServer: 0
+  visServer: 1
   updateFrameRate: 1
   nextUpdateCounter: 0
   initOnStart: 0
@@ -94,3 +97,73 @@ MonoBehaviour:
   armatureName: Armature
   useRootRotation: 1
   runOnserver: 0
+--- !u!114 &-3040986160783487964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7845951327085506187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2369828f70bd34b94075ff1cd19cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootName: Hips
+  headName: Head
+  width: 0.04
+  mat: {fileID: 2100000, guid: 889152b92b03deb45a83e37cacff3327, type: 2}
+  tansluscentMat: {fileID: 2100000, guid: 34188905abc69aa4fb6f5beb35f7d365, type: 2}
+  leftFoot: {fileID: 4265222953134221812, guid: d7e74826b97900f4c9aee54919671488, type: 3}
+  rightFoot: {fileID: 6601363404923112111, guid: b9991eb4882c22d4ba9471772b7c66ee, type: 3}
+  headPrefab: {fileID: 370539650439615074, guid: 29c2d32eeeff4d24496b3856ee173586, type: 3}
+  reference: {fileID: 5918097597002162060, guid: 48864c1e2797cb442b2f0810282fad59, type: 3}
+  footOffset: 0
+  lengthScaleFactor: 0.8
+  headOffset: 0
+  referenceBodies:
+  - name: Hips
+    refName: butt
+  - name: Spine
+    refName: lower_waist
+  - name: Spine1
+    refName: upper_waist
+  - name: Spine2
+    refName: torso
+  - name: Head
+    refName: head
+  - name: LeftUpLeg
+    refName: left_thigh
+  - name: LeftLeg
+    refName: left_shin
+  - name: LeftFoot
+    refName: left_left_foot
+  - name: RightUpLeg
+    refName: right_thigh
+  - name: RightLeg
+    refName: right_shin
+  - name: RightFoot
+    refName: right_right_foot
+  - name: LeftArm
+    refName: left_upper_arm
+  - name: RightArm
+    refName: right_upper_arm
+  - name: RightForeArm
+    refName: right_larm
+  - name: LeftForeArm
+    refName: left_larm
+  createColliderAsChild: 0
+  endEffectors:
+  - LeftHand
+  - RightHand
+  alignAnchorRotation: 1
+  MusclePowers: []
+  HumanoidMusclePowers: []
+  ignoreList: []
+  MotorScale: 1
+  Stiffness: 100
+  Damping: 100
+  modelLayer: 
+  referenceLayer: 
+  figureType: 0
+  disableLimits: 0
