@@ -80,7 +80,7 @@ public class RPMAvatarManager : NetworkBehaviour
     }
 
 
-    public void OnRPMAvatarLoaded(GameObject avatar, AvatarMetaData metaData=null)
+    virtual public void OnRPMAvatarLoaded(GameObject avatar, AvatarMetaData metaData=null)
     {
         bool activateFootRig = GlobalGameState.GetInstance().config.activateFootTrackers;
         var ikRigBuilder = new RPMIKRigBuilder(animationController, activateFootRig);
@@ -90,7 +90,7 @@ public class RPMAvatarManager : NetworkBehaviour
     }
 
 
-    void SetupRig(CharacterRigConfig config, GameObject avatar)
+    public void SetupRig(CharacterRigConfig config, GameObject avatar)
     {
         InitVRRig vrRig = avatar.AddComponent<InitVRRig>();
         vrRig.SetupAvatarController(config, avatar);
