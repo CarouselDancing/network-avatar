@@ -32,6 +32,8 @@ public class RPMIKRigBuilder
         config.Root = transformMap["Hips"];
         config.Head = transformMap["Head"];
         config.ToeTip = transformMap["RightToe_End"];
+        config.LeftHand = transformMap["LeftHand"];
+        config.RightHand = transformMap["RightHand"];
         return config;
     }
 

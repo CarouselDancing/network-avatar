@@ -16,6 +16,7 @@ public class RPMAvatarManager : NetworkBehaviour
     protected NetworkAvatar networkAvatar;
     public bool IsOwner => isLocalPlayer;
     public bool initiated = false;
+    public bool offline;
     virtual public void Start()
     {
         networkAvatar = GetComponent<NetworkAvatar>();
@@ -129,15 +130,6 @@ public class RPMAvatarManager : NetworkBehaviour
         {
             vrRig.Deactivate();
             Debug.Log("deactivate vr rig");
-           /* for (int i = 0; i < animator.transform.childCount; i++)
-            {
-                var t = animator.transform.GetChild(i);
-                if (t.name == "Armature")
-                {
-                    t.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
-                    break;
-                }
-            }*/
         }
     }
 

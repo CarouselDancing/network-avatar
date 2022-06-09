@@ -20,6 +20,8 @@ public class CharacterRigConfig : MonoBehaviour
     public Transform Root;
     public Transform Head;
     public Transform ToeTip;
+    public Transform LeftHand;
+    public Transform RightHand;
 
 
 }
