@@ -7,6 +7,8 @@ using ReadyPlayerMe;
 
 public class RPMAvatarManager : NetworkBehaviour
 {
+    [SyncVar(hook = nameof(OnAvatarURLChanged))]
+    public string syncAvatarURL;
     public string AvatarURL = "";
     public GameObject go;
     public RuntimeAnimatorController animationController;
@@ -24,6 +26,7 @@ public class RPMAvatarManager : NetworkBehaviour
             {
 
                 SetupAvatarControllerFromRPM(AvatarURL);
+                CmdSetURL(AvatarURL);
             }
             else
             {
@@ -33,6 +36,29 @@ public class RPMAvatarManager : NetworkBehaviour
 
     }
 
+
+    
+    [Command]
+    void CmdSetURL(string newValue)
+    {
+        Debug.Log("CmdSetURL");
+        AvatarURL = newValue;
+        syncAvatarURL = newValue;
+        if(!initiated && newValue != "") {
+        SetupAvatarControllerFromRPM(newValue);
+    }
+    }
+
+
+    void OnAvatarURLChanged(string _, string newValue)
+    {
+        Debug.Log("OnAvatarURLChanged");
+        if(!initiated && newValue != "") {
+            SetupAvatarControllerFromRPM(newValue);
+        }
+    }
+
+    /*
     private void Update()
     {
 
@@ -59,7 +85,7 @@ public class RPMAvatarManager : NetworkBehaviour
     {
         AvatarURL = newurl;
     }
-
+*/
 
     void SetupAvatarControllerFromRPM(string url)
     {
