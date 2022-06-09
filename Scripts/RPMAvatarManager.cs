@@ -129,7 +129,7 @@ public class RPMAvatarManager : NetworkBehaviour
         {
             vrRig.Deactivate();
             Debug.Log("deactivate vr rig");
-            for (int i = 0; i < animator.transform.childCount; i++)
+           /* for (int i = 0; i < animator.transform.childCount; i++)
             {
                 var t = animator.transform.GetChild(i);
                 if (t.name == "Armature")
@@ -137,7 +137,7 @@ public class RPMAvatarManager : NetworkBehaviour
                     t.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
                     break;
                 }
-            }
+            }*/
         }
     }
 
