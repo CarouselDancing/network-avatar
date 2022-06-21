@@ -16,4 +16,5 @@ public class VRRigConfig : MonoBehaviour
 
 
     public TrackerTarget headTrackerTarget;
+    public Transform origin;
 }
