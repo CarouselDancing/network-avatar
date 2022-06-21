@@ -39,6 +39,7 @@ public class GlobalGameState
 {
     public ClientConfig config;
     protected static GlobalGameState instance;
+    public static bool useResources = false;
 
 
     protected GlobalGameState()
@@ -49,8 +50,15 @@ public class GlobalGameState
 
     protected void Load()
     {
-        string configFile = Path.Combine(Application.streamingAssetsPath, "config.json");
-        string configText = File.ReadAllText(configFile);
+        string configText = "";
+        if(useResources){
+            var configAsset = Resources.Load<TextAsset>("config");
+            configText = configAsset.text;
+        }else{
+            string configFile = Path.Combine(Application.streamingAssetsPath, "config.json");
+           configText = File.ReadAllText(configFile);
+        }
+        
         config = JsonUtility.FromJson<ClientConfig>(configText);
         Debug.Log(config.ToString());
 
