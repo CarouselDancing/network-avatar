@@ -1,3 +1,5 @@
+/*Assumes Ready Player Me avatar*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +11,16 @@ public class RPMIKRigBuilder
     bool _activateRig;
     RuntimeAnimatorController _animController;
     Dictionary<string, Transform> transformMap;
+    string headLayerName = "head";
+    List<string> headMeshClippingNames = new List<string> () {"Avatar_Renderer_EyeLeft", "Avatar_Renderer_EyeRight", "Avatar_Renderer_Hair","Avatar_Renderer_Head","Avatar_Renderer_Teeth"};
+    int headLayerIndex;
 
     public RPMIKRigBuilder(RuntimeAnimatorController animController, bool activateFootRig = true, bool activateRig=true)
     {
         _animController = animController;
         _activateFootRig = activateFootRig;
         _activateRig = activateRig;
+        headLayerIndex = LayerMask.NameToLayer(headLayerName);
     }
 
     public CharacterRigConfig BuildConfig(GameObject avatar){
@@ -29,17 +35,27 @@ public class RPMIKRigBuilder
         }
         transformMap = new Dictionary<string, Transform>();
         UpdateTransformMap(avatar.transform);
+        
         config.Root = transformMap["Hips"];
         config.Head = transformMap["Head"];
         config.ToeTip = transformMap["RightToe_End"];
         config.LeftHand = transformMap["LeftHand"];
         config.RightHand = transformMap["RightHand"];
+
+        
         return config;
     }
 
-    public CharacterRigConfig Build(GameObject avatar)
+    public void ClipHeadMeshes(){
+        foreach(var name in headMeshClippingNames){
+            transformMap[name].gameObject.layer = headLayerIndex;
+        }
+    }
+
+    public CharacterRigConfig Build(GameObject avatar, bool isOwner=false)
     {
         var config = BuildConfig(avatar);
+        if (isOwner) ClipHeadMeshes();
         var rigBuilder = avatar.AddComponent<RigBuilder>();
         CreateCameraTarget(ref config);
         CreateRootRig(avatar.transform, rigBuilder, ref config);
