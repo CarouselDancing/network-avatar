@@ -97,7 +97,7 @@ public class RPMAvatarManager : NetworkBehaviour
     }
 
     public void OnAvatarImported(GameObject avatar)
-    {
+    {   
         go = avatar;
         avatar.transform.parent = transform;
         Debug.Log($"Avatar imported. [{Time.timeSinceLevelLoad:F2}]");

@@ -12,6 +12,7 @@ public class AutoClientOrHost : MonoBehaviour
     
     public string ClientSceneName;
     public string ServerSceneName;
+    public bool loadAdditiveScene = true;
 
     // Start is called before the first frame update
     void Start()
@@ -19,15 +20,15 @@ public class AutoClientOrHost : MonoBehaviour
         var n = GetComponent<AppNetworkManager>();
         if(client){
             n.StartClient();
-            SceneManager.LoadScene(ClientSceneName, LoadSceneMode.Additive);
+            if(loadAdditiveScene)SceneManager.LoadScene(ClientSceneName, LoadSceneMode.Additive);
         }
         if(host){
             n.StartHost();
-            SceneManager.LoadScene(ClientSceneName, LoadSceneMode.Additive);
+            if(loadAdditiveScene)SceneManager.LoadScene(ClientSceneName, LoadSceneMode.Additive);
         }
         if(server){
             n.StartServer();
-            SceneManager.LoadScene(ServerSceneName, LoadSceneMode.Additive);
+           if(loadAdditiveScene)SceneManager.LoadScene(ServerSceneName, LoadSceneMode.Additive);
             
         }
     }

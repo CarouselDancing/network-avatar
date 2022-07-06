@@ -25,6 +25,7 @@ public class ClientConfig
     public TrackerConfig leftFootTracker;
     public TrackerConfig rightFootTracker;
     public bool activateDebugVis;
+    public string networkMode;
 
     override public string ToString()
     {
