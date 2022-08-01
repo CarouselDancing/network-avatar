@@ -40,7 +40,7 @@ public class RPMAvatarManager : NetworkBehaviour
 
     
     [Command]
-    void CmdSetURL(string newValue)
+    public void CmdSetURL(string newValue)
     {
         Debug.Log("CmdSetURL");
         AvatarURL = newValue;
@@ -88,7 +88,7 @@ public class RPMAvatarManager : NetworkBehaviour
     }
 */
 
-    void SetupAvatarControllerFromRPM(string url)
+    public void SetupAvatarControllerFromRPM(string url)
     {
         initiated = true;
         AvatarLoader avatarLoader = new AvatarLoader();

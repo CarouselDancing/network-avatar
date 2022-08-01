@@ -40,7 +40,7 @@ public class GlobalGameState
 {
     public ClientConfig config;
     protected static GlobalGameState instance;
-    public static bool useResources = false;
+    public static bool useResources = true;
 
 
     protected GlobalGameState()
