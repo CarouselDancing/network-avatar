@@ -17,4 +17,20 @@ public class VRRigConfig : MonoBehaviour
 
     public TrackerTarget headTrackerTarget;
     public Transform origin;
+
+    
+    public void DisableAllTargets(){
+        leftControllerTarget.initialized = false;
+        leftControllerTarget.enabled = false;
+        rightControllerTarget.initialized = false;
+        rightControllerTarget.enabled = false;
+        headTrackerTarget.initialized = false;
+        headTrackerTarget.enabled = false;
+        hipTrackerTarget.initialized = false;
+        hipTrackerTarget.enabled = false;
+        leftFootTarget.initialized = false;
+        leftFootTarget.enabled = false;
+        rightFootTarget.initialized = false;
+        rightFootTarget.enabled = false;
+    }
 }

@@ -18,7 +18,7 @@ public class TrackerTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!initialized) SetOffset();
+        if(!initialized && target != null) SetOffset();
         target.position = transform.position + transform.rotation * offset;
         target.rotation = transform.rotation * Quaternion.Euler(rotationOffset);
     }
