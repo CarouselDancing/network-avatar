@@ -14,10 +14,10 @@ public class NetworkAvatar : NetworkBehaviour
 {
 
 
-    protected SyncList<Quaternion> rotations = new SyncList<Quaternion>();
-    [SyncVar]
+    protected List<Quaternion> rotations = new List<Quaternion>();
+    //[SyncVar]
     protected Vector3 _rootPos;
-    [SyncVar]
+   //[SyncVar]
     protected Quaternion _rootRot;
 
     // bones of the avatar
@@ -67,8 +67,20 @@ public class NetworkAvatar : NetworkBehaviour
 
 
     [Command]
-    void UpdateSyncvars(Vector3 rootPos, Quaternion rootRot, List<Quaternion> _rotations)
+    void UpdateServerSyncvars(Vector3 rootPos, Quaternion rootRot, List<Quaternion> _rotations)
     {
+        _rootPos = rootPos;
+        _rootRot = rootRot;
+        rotations.Clear();
+        foreach (var q in _rotations) {
+            rotations.Add(q);
+        }
+    }
+
+    [ClientRpc]
+    void UpdateClientSyncvars(Vector3 rootPos, Quaternion rootRot, List<Quaternion> _rotations)
+    {
+        if(IsOwner) return;
         _rootPos = rootPos;
         _rootRot = rootRot;
         rotations.Clear();
@@ -87,6 +99,18 @@ public class NetworkAvatar : NetworkBehaviour
             return;
         }
 
+        if (isServer)
+        {
+
+            var rots = new List<Quaternion>();
+            //write vars 
+            foreach (var b in bones)
+            {
+                rots.Add(b.localRotation);
+            }
+            UpdateClientSyncvars(root.position, root.rotation, rots);
+        }
+
         if (!runOnserver && !visServer && !isClient) return;
         if ((isClient && IsOwner) || (runOnserver && isServer))
         {
@@ -97,7 +121,7 @@ public class NetworkAvatar : NetworkBehaviour
             {
                 rots.Add(b.localRotation);
             }
-            UpdateSyncvars(root.position, root.rotation, rots);
+            UpdateServerSyncvars(root.position, root.rotation, rots);
         }
         else // if we're the instance of a remote player, get the synced variable and set it
         {
