@@ -26,6 +26,7 @@ public class ClientConfig
     public TrackerConfig rightFootTracker;
     public bool activateDebugVis;
     public string networkMode;
+    protected static ClientConfig instance;
 
     override public string ToString()
     {
@@ -33,6 +34,19 @@ public class ClientConfig
         s += "activate feet:" + activateFootTrackers + " left id: " + leftFootTracker.deviceID.ToString() +" right id: "+ rightFootTracker.deviceID.ToString() + "\n";
         
         return s;
+    }  
+    
+    public static ClientConfig GetInstance()
+    {
+        return instance;
+    }
+    public static ClientConfig InitInstance(string configText)
+    {
+        if (instance == null)
+        {
+            instance = JsonUtility.FromJson<ClientConfig>(configText);
+        }
+        return instance;
     }
 }
 
@@ -51,6 +65,9 @@ public class GlobalGameState
 
     protected void Load()
     {
+        
+        config = ClientConfig.GetInstance();
+        if (config!=null)return;
         string configText = "";
         if(useResources){
             var configAsset = Resources.Load<TextAsset>("config");
@@ -60,7 +77,7 @@ public class GlobalGameState
            configText = File.ReadAllText(configFile);
         }
         
-        config = JsonUtility.FromJson<ClientConfig>(configText);
+        config = ClientConfig.InitInstance(configText);
         Debug.Log(config.ToString());
 
     }
