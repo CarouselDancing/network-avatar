@@ -28,9 +28,29 @@ public class InitVRRig : MonoBehaviour
         headIKTarget = config.HeadIKTarget;
         leftIKTarget = config.LeftHandIKTarget;
         rightIKTarget = config.RightHandIKTarget;
+        var trackerTargets = new List<TrackerTarget>();
+
+        var trackerConfig = Camera.main.GetComponent<VRRigConfig>();
+        
+            if(trackerConfig != null){
+                var htarget = trackerConfig.headTrackerTarget.GetComponent<TrackerTarget>();
+                htarget.automatic = false;
+                trackerTargets.Add(htarget);
+                var ltarget = trackerConfig.leftControllerTarget.GetComponent<TrackerTarget>();
+                ltarget.automatic = false;
+                trackerTargets.Add(ltarget);
+                var rtarget = trackerConfig.rightControllerTarget.GetComponent<TrackerTarget>();
+                rtarget.automatic = false;
+                trackerTargets.Add(rtarget);
+            }
         if (globalConfig.activateHipTracker)
         {
             hipTrackerTarget = config.RootTarget;
+            if(trackerConfig != null){
+                var htarget = trackerConfig.hipTrackerTarget.GetComponent<TrackerTarget>();
+                htarget.automatic = false;
+                trackerTargets.Add(htarget);
+            }
         }
 
 
@@ -39,6 +59,16 @@ public class InitVRRig : MonoBehaviour
             leftFootIKTarget = config.LeftFootIKTarget;
 
             rightFootIKTarget = config.RightFootIKTarget;
+
+            
+            if(trackerConfig != null){
+                var ltarget = trackerConfig.leftFootTarget.GetComponent<TrackerTarget>();
+                ltarget.automatic = false;
+                trackerTargets.Add(ltarget);
+                var rtarget = trackerConfig.rightFootTarget.GetComponent<TrackerTarget>();
+                rtarget.automatic = false;
+                trackerTargets.Add(rtarget);
+            }
         }
 
         scaler = avatar.AddComponent<AvatarScaler>();
@@ -57,6 +87,8 @@ public class InitVRRig : MonoBehaviour
         controller.cameraTarget = config.CameraTarget;
         controller.root = config.RootTarget;
         controller.rootRig = config.RootRig;
+        controller.active = !globalConfig.activateHipTracker;
+        controller.trackerTargets = trackerTargets;
         controller.anim = avatar.GetComponent<Animator>();
 
     }
@@ -64,6 +96,7 @@ public class InitVRRig : MonoBehaviour
 
     public void ConnectTrackers()
     {
+        // here the connection to the xr rig is made
         var trackerConfig = Camera.main.GetComponent<VRRigConfig>();
         if (trackerConfig == null)
         {

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging; 
+using UnityEngine.Animations.Rigging;
+using System.Linq;
+
 
 public class AvatarController : MonoBehaviour
 {
@@ -18,8 +20,9 @@ public class AvatarController : MonoBehaviour
     public Animator anim;
     public Transform leftController;
     public Transform rightController;
-    public Transform hipTracker;
     public bool hideMesh = true;
+    public bool active = true;
+    public List<TrackerTarget> trackerTargets;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,14 +32,17 @@ public class AvatarController : MonoBehaviour
         var invQ = Quaternion.Inverse(Quaternion.Euler(0, root.rotation.eulerAngles.y, 0));
         cameraOffset = invQ * cameraOffset;
         offset = anim.GetBoneTransform(HumanBodyBones.Hips).position  - head.position; //root.position
+        Debug.Log("AvatarController offset"+offset.ToString());
         offset = invQ * offset;
-        Debug.Log("state");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (hipTracker == null && headset != null) { 
+        foreach(var t in trackerTargets){
+            t.UpdateTarget();
+        }
+        if (active && headset != null) { 
             var rotation = Quaternion.Euler(0, root.rotation.eulerAngles.y, 0);
             var gcoffset = rotation * cameraOffset;
             var goffset = rotation * offset;
@@ -44,7 +50,7 @@ public class AvatarController : MonoBehaviour
             var srcrotation = headset.rotation.eulerAngles;
             root.rotation = Quaternion.Euler(0, srcrotation.y, 0);
         }
-
+        
         /*
         rightFootDst.position = rightFootSrc.position;
         leftFootDst.position = leftFootSrc.position;

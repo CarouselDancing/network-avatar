@@ -48,7 +48,7 @@ public class RPMIKRigBuilder
 
     public void ClipHeadMeshes(){
         foreach(var name in headMeshClippingNames){
-            transformMap[name].gameObject.layer = headLayerIndex;
+            if (transformMap.ContainsKey(name)) transformMap[name].gameObject.layer = headLayerIndex;
         }
     }
 
@@ -59,8 +59,8 @@ public class RPMIKRigBuilder
         var rigBuilder = avatar.AddComponent<RigBuilder>();
         CreateCameraTarget(ref config);
         CreateRootRig(avatar.transform, rigBuilder, ref config);
-        CreateArmRig(avatar.transform, rigBuilder, ref config);
         CreateHeadRig(avatar.transform, rigBuilder, ref config);
+        CreateArmRig(avatar.transform, rigBuilder, ref config);
         CreateLegRig(avatar.transform, rigBuilder,  ref config);
         var anim = avatar.GetComponent<Animator>();
         anim.runtimeAnimatorController = _animController;
