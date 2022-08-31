@@ -34,8 +34,8 @@ public class ClientConfig
     public TrackerConfig hipTracker;
     public TrackerConfig leftFootTracker;
     public TrackerConfig rightFootTracker;
-    public bool activateDebugVis;
-    public string networkMode;
+    public TrackerConfig leftControllerTracker;
+    public TrackerConfig rightControllerTracker;
     protected static ClientConfig instance;
 
     override public string ToString()
@@ -59,46 +59,3 @@ public class ClientConfig
         return instance;
     }
 }
-
-public class GlobalGameState
-{
-    public ClientConfig config;
-    protected static GlobalGameState instance;
-    public static bool useResources = true;
-
-
-    protected GlobalGameState()
-    {
-        Load();
-    }
-
-
-    protected void Load()
-    {
-        
-        config = ClientConfig.GetInstance();
-        if (config!=null)return;
-        string configText = "";
-        if(useResources){
-            var configAsset = Resources.Load<TextAsset>("config");
-            configText = configAsset.text;
-        }else{
-            string configFile = Path.Combine(Application.streamingAssetsPath, "config.json");
-           configText = File.ReadAllText(configFile);
-        }
-        
-        config = ClientConfig.InitInstance(configText);
-        Debug.Log(config.ToString());
-
-    }
-
-    public static GlobalGameState GetInstance()
-    {
-        if (instance == null)
-        {
-            instance = new GlobalGameState();
-        }
-        return instance;
-    }
-}
-

@@ -23,7 +23,7 @@ public class InitVRRig : MonoBehaviour
 
     public void SetupAvatarController(CharacterRigConfig config, GameObject avatar)
     {
-        var globalConfig = GlobalGameState.GetInstance().config;
+        var globalConfig = ClientConfig.GetInstance();
         //TODO store config in VRRig initalizer
         headIKTarget = config.HeadIKTarget;
         leftIKTarget = config.LeftHandIKTarget;
@@ -32,17 +32,17 @@ public class InitVRRig : MonoBehaviour
 
         var trackerConfig = Camera.main.GetComponent<VRRigConfig>();
         
-            if(trackerConfig != null){
-                var htarget = trackerConfig.headTrackerTarget.GetComponent<TrackerTarget>();
-                htarget.automatic = false;
-                trackerTargets.Add(htarget);
-                var ltarget = trackerConfig.leftControllerTarget.GetComponent<TrackerTarget>();
-                ltarget.automatic = false;
-                trackerTargets.Add(ltarget);
-                var rtarget = trackerConfig.rightControllerTarget.GetComponent<TrackerTarget>();
-                rtarget.automatic = false;
-                trackerTargets.Add(rtarget);
-            }
+        if(trackerConfig != null){
+            var htarget = trackerConfig.headTrackerTarget.GetComponent<TrackerTarget>();
+            htarget.automatic = false;
+            trackerTargets.Add(htarget);
+            var ltarget = trackerConfig.leftControllerTarget.GetComponent<TrackerTarget>();
+            ltarget.automatic = false;
+            trackerTargets.Add(ltarget);
+            var rtarget = trackerConfig.rightControllerTarget.GetComponent<TrackerTarget>();
+            rtarget.automatic = false;
+            trackerTargets.Add(rtarget);
+        }
         if (globalConfig.activateHipTracker)
         {
             hipTrackerTarget = config.RootTarget;
@@ -111,19 +111,19 @@ public class InitVRRig : MonoBehaviour
         controller.leftController = trackerConfig.leftController;
 
         trackerConfig.leftControllerTarget.target = leftIKTarget;
-        trackerConfig.leftControllerTarget.offset = Vector3.zero;
+        //trackerConfig.leftControllerTarget.offset = Vector3.zero;
         trackerConfig.leftControllerTarget.initialized = true;
         trackerConfig.leftControllerTarget.enabled = true;
 
         trackerConfig.rightControllerTarget.target = rightIKTarget;
-        trackerConfig.rightControllerTarget.offset = Vector3.zero;
+        //trackerConfig.rightControllerTarget.offset = Vector3.zero;
         trackerConfig.rightControllerTarget.initialized = true;
         trackerConfig.rightControllerTarget.enabled = true;
 
         if (headIKTarget != null && trackerConfig.headTrackerTarget != null)
         {
             trackerConfig.headTrackerTarget.target = headIKTarget;
-            trackerConfig.headTrackerTarget.offset = Vector3.zero;
+            //trackerConfig.headTrackerTarget.offset = Vector3.zero;
             trackerConfig.headTrackerTarget.initialized = true;
             trackerConfig.headTrackerTarget.enabled = true;
             Debug.Log("activate head ik");
