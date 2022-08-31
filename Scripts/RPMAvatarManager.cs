@@ -22,7 +22,9 @@ public class RPMAvatarManager : NetworkBehaviour
         networkAvatar = GetComponent<NetworkAvatar>();
         if (IsOwner)
         {
-            AvatarURL = GlobalGameState.GetInstance().config.rpmURL;
+            var config = GlobalGameState.GetInstance().config;
+            var avatarIndex = config.userAvatar;
+            AvatarURL = config.rpmAvatars[avatarIndex].url;
             if (AvatarURL != "")
             {
 
