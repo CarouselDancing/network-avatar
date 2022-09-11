@@ -148,7 +148,7 @@ public class CameraController : MonoBehaviour
         float distance = dt * -delta.x * translationScale * 2;
         pos.x += distance * Mathf.Cos(rad);
         pos.z += distance * Mathf.Sin(rad);
-        pos.y -= translationScale * delta.y;
+        pos.y -= translationScale * dt * delta.y;
         cameraTarget.position = pos;
 
     }
