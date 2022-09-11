@@ -7,6 +7,7 @@ using UnityEngine.Animations.Rigging;
 
 public class RPMIKRigBuilder
 {
+    static Vector3 ZERO = Vector3.zero;
     bool _activateFootRig;
     bool _activateRig;
     RuntimeAnimatorController _animController;
@@ -14,8 +15,10 @@ public class RPMIKRigBuilder
     string headLayerName = "head";
     List<string> headMeshClippingNames = new List<string> () {"Avatar_Renderer_EyeLeft", "Avatar_Renderer_EyeRight", "Avatar_Renderer_Hair","Avatar_Renderer_Head","Avatar_Renderer_Teeth"};
     int headLayerIndex;
+    public Vector3 handCenterOffset = new Vector3(0,0,0);
 
-    public RPMIKRigBuilder(RuntimeAnimatorController animController, bool activateFootRig = true, bool activateRig=true)
+    public RPMIKRigBuilder(RuntimeAnimatorController animController, 
+                        bool activateFootRig = true, bool activateRig=true)
     {
         _animController = animController;
         _activateFootRig = activateFootRig;
@@ -41,9 +44,25 @@ public class RPMIKRigBuilder
         config.ToeTip = transformMap["RightToe_End"];
         config.LeftHand = transformMap["LeftHand"];
         config.RightHand = transformMap["RightHand"];
-
-        
+        config.RightFoot = transformMap["RightFoot"];
+        config.LeftFoot = transformMap["LeftFoot"];
         return config;
+    }
+
+
+    public void AddHandCenters(ref CharacterRigConfig config){
+        config.LeftHandCenter = AddHandCenter(config.LeftHand, handCenterOffset);
+        config.RightHandCenter = AddHandCenter(config.RightHand, handCenterOffset);
+        
+    }
+    public Transform AddHandCenter(Transform node, Vector3 offset){
+        
+        GameObject handCenterNode = new GameObject();
+        handCenterNode.name = node.name + "Center";
+        handCenterNode.transform.parent = node;
+        handCenterNode.transform.localPosition = offset;
+        handCenterNode.transform.localRotation = Quaternion.identity;
+        return handCenterNode.transform;
     }
 
     public void ClipHeadMeshes(){
@@ -55,6 +74,7 @@ public class RPMIKRigBuilder
     public CharacterRigConfig Build(GameObject avatar, bool isOwner=false)
     {
         var config = BuildConfig(avatar);
+        AddHandCenters(ref config);
         if (isOwner) ClipHeadMeshes();
         var rigBuilder = avatar.AddComponent<RigBuilder>();
         CreateCameraTarget(ref config);

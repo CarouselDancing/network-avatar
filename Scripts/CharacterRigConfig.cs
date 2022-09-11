@@ -22,6 +22,10 @@ public class CharacterRigConfig : MonoBehaviour
     public Transform ToeTip;
     public Transform LeftHand;
     public Transform RightHand;
+    public Transform LeftHandCenter;
+    public Transform RightHandCenter;
+    public Transform RightFoot;
+    public Transform LeftFoot;
 
 
 }
