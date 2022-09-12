@@ -4,6 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class ServerRegistryConfig{
+    public string protocol = "https";
+    public int port = 8888;
+    public string url = "motion.dfki.de";
+    public bool usePort = true;
+    public bool usePortWorkAround = true;
+}
 
 [Serializable]
 public class RPMAvatarEntry
@@ -21,6 +29,7 @@ public class TrackerConfig
 
 }
 
+
 [Serializable]
 public class ClientConfig
 {
@@ -36,6 +45,8 @@ public class ClientConfig
     public TrackerConfig rightFootTracker;
     public TrackerConfig leftControllerTracker;
     public TrackerConfig rightControllerTracker;
+    public bool registerServerOnline = true;
+    public ServerRegistryConfig serverRegistryConfig;
     protected static ClientConfig instance;
 
     override public string ToString()
