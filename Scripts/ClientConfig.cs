@@ -11,6 +11,9 @@ public class ServerRegistryConfig{
     public string url = "motion.dfki.de";
     public bool usePort = true;
     public bool usePortWorkAround = true;
+    public string defaultServer = "";
+    public string publicIP = "";
+    public bool useLocalIP = true;
 }
 
 [Serializable]
