@@ -61,34 +61,6 @@ public class RPMAvatarManager : NetworkBehaviour
         }
     }
 
-    /*
-    private void Update()
-    {
-
-        if (!initiated && !IsOwner && AvatarURL != "")
-        {
-            SetupAvatarControllerFromRPM(AvatarURL);
-        }
-        else if (initiated && IsOwner && AvatarURL != "")
-        { //TODO replace with server side avatarmanagement
-            UpdateSyncvars(AvatarURL);
-        }
-    }
-
-
-    [Command]
-    void UpdateSyncvars(string newurl)
-    {
-        AvatarURL = newurl;
-        ChangeClientAvatar(newurl);
-    }
-
-    [ClientRpc]
-    void ChangeClientAvatar(string newurl)
-    {
-        AvatarURL = newurl;
-    }
-*/
 
     public void SetupAvatarControllerFromRPM(string url)
     {

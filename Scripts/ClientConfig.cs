@@ -50,6 +50,7 @@ public class ClientConfig
     public TrackerConfig rightControllerTracker;
     public bool registerServerOnline = true;
     public ServerRegistryConfig serverRegistryConfig;
+    public bool isObserver = false;
     protected static ClientConfig instance;
 
     override public string ToString()
