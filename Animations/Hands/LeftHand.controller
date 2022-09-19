@@ -125,10 +125,10 @@ AnimatorStateMachine:
     m_Position: {x: 280, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2103375989316021336}
-    m_Position: {x: 599.8174, y: 25.250366, z: 0}
+    m_Position: {x: 490, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2476543138834646813}
-    m_Position: {x: 383.55533, y: -123.901855, z: 0}
+    m_Position: {x: 550, y: -10, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -190,24 +190,18 @@ AnimatorController:
   m_Name: LeftHand
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Trigger
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
   - m_Name: ButtonPressed
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Switch
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Trigger
